@@ -1,0 +1,488 @@
+{
+  "Uuid": "6d0b2f19-d40d-4444-9901-1cc8d77f6512",
+  "IsCustomNode": false,
+  "Description": null,
+  "Name": "archimedean spiral",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.Point.ByCoordinates@double,double,double",
+      "Id": "adffb21b98244681872bd7d24559fc6a",
+      "Inputs": [
+        {
+          "Id": "5b1b3fb6e4594ba5902fd5d10a1af2a7",
+          "Name": "x",
+          "Description": "double\nDefault value : 0",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "a56daf03c91445398f6278df8f9b3666",
+          "Name": "y",
+          "Description": "double\nDefault value : 0",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "a2dbff4b99be4b9d82091f40b3f40cdb",
+          "Name": "z",
+          "Description": "double\nDefault value : 0",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "c380b9ddad2b4922907cdd88abe14bc8",
+          "Name": "Point",
+          "Description": "Point",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Form a Point given 3 cartesian coordinates\n\nPoint.ByCoordinates (x: double = 0, y: double = 0, z: double = 0): Point"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Load the Python Standard and DesignScript Libraries\r\nimport sys\r\nimport clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n\r\npoint = IN[0]\r\nrn = IN[1]\r\n\r\npoints = []\r\nradian = 57.2958\r\nrn = list(range(1,rn,1))\r\n\r\nfor i in rn:\r\n    \r\n    a = Arc.ByCenterPointRadiusAngle(point,i,0,radian,Vector.ByCoordinates(0,0,1))\r\n    points.append(a.EndPoint)\r\n    radian += 57.2958\r\nOUT = points",
+      "Engine": "CPython3",
+      "VariableInputPorts": true,
+      "Id": "1f67e11d29d54bbeb77c26278642de11",
+      "Inputs": [
+        {
+          "Id": "f17d7de1d6a64201bcf1e310a6f2aebf",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "89675ef5f96f4479a59afac0d10c15f2",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "8145f20db58a42cca2eff28c11290fff",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded Python script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "1000;",
+      "Id": "d6ed0993fce44bc596056aad956c615b",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "22248a86def6480ba58d7fea5bf95aea",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Load the Python Standard and DesignScript Libraries\r\nimport sys\r\nimport clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n\r\npoint = IN[0]\r\nrn = IN[1]\r\n\r\npoints = []\r\nradian = 57.2958\r\nradius = 1\r\nrn = list(range(1,rn,1))\r\n\r\ndef prime(num):\r\n        for x in range(2,num):\r\n            if num % x == 0:\r\n                return False\r\n        return True\r\n\r\n\r\nfor i in rn:\r\n    if prime(i):\r\n        a = Arc.ByCenterPointRadiusAngle(point,i,0,radian,Vector.ByCoordinates(0,0,1))\r\n        points.append(a.EndPoint)\r\n        radian += 57.2958\r\n        \r\nOUT = points",
+      "Engine": "CPython3",
+      "VariableInputPorts": true,
+      "Id": "3e16b86ddddc4413b4f552278430fe07",
+      "Inputs": [
+        {
+          "Id": "509c6eb826eb4b2baa5ba8576c2a95e5",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "8d3ace73a86540128389ef7b5af8113b",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "3104d51a00da453698d552e419e10ef0",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded Python script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.Point.ByCoordinates@double,double,double",
+      "Id": "ab1fb4baa0d246dd90b537a6c3ea1782",
+      "Inputs": [
+        {
+          "Id": "d49cf5c8f06546088166d306c4e74409",
+          "Name": "x",
+          "Description": "double\nDefault value : 0",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "2352061676f84cefb08adfdf89fcd3b0",
+          "Name": "y",
+          "Description": "double\nDefault value : 0",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "eb6e80f9d9554c9b80ff0ac449dd454d",
+          "Name": "z",
+          "Description": "double\nDefault value : 0",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "2f8197dd490a4673b584885fcb93f270",
+          "Name": "Point",
+          "Description": "Point",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Form a Point given 3 cartesian coordinates\n\nPoint.ByCoordinates (x: double = 0, y: double = 0, z: double = 0): Point"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.DoubleSlider, CoreNodeModels",
+      "NodeType": "NumberInputNode",
+      "NumberType": "Double",
+      "MaximumValue": 100000.0,
+      "MinimumValue": 100.0,
+      "StepValue": 100.0,
+      "InputValue": 10200.0,
+      "Id": "c6752848096f4c7a84f41ed5b95ca756",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "2a85d355848e433cbc1aaede3eb4825e",
+          "Name": "",
+          "Description": "Double",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A slider that produces numeric values."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.NurbsCurve.ByPoints@Autodesk.DesignScript.Geometry.Point[]",
+      "Id": "27b2bfdf00eb4063aaa2c03d05f4ca6c",
+      "Inputs": [
+        {
+          "Id": "74ea6e6368864fb0b5b63e00cd33ff68",
+          "Name": "points",
+          "Description": "Point[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "fc05ea9050724b16bf61990613263135",
+          "Name": "NurbsCurve",
+          "Description": "NurbsCurve",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create a BSplineCurve by interpolating between points.\n\nNurbsCurve.ByPoints (points: Point[]): NurbsCurve"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.NurbsCurve.ByPoints@Autodesk.DesignScript.Geometry.Point[]",
+      "Id": "06bec9e5c4a14bf89d2b029f8485009c",
+      "Inputs": [
+        {
+          "Id": "36654c2a34dc4107909f140a410c3ffc",
+          "Name": "points",
+          "Description": "Point[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "c70b0ca4a17c4adca1b78f4696a073d9",
+          "Name": "NurbsCurve",
+          "Description": "NurbsCurve",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create a BSplineCurve by interpolating between points.\n\nNurbsCurve.ByPoints (points: Point[]): NurbsCurve"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "[x];",
+      "Id": "12aacf7347394a0da5f67f0868768857",
+      "Inputs": [
+        {
+          "Id": "e1904687986f411ba410bf73e2972908",
+          "Name": "x",
+          "Description": "x",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "545c380e63de47199eeee45586749d63",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "c380b9ddad2b4922907cdd88abe14bc8",
+      "End": "f17d7de1d6a64201bcf1e310a6f2aebf",
+      "Id": "29cea08f34e4402f9f20ad94be836e9b"
+    },
+    {
+      "Start": "8145f20db58a42cca2eff28c11290fff",
+      "End": "74ea6e6368864fb0b5b63e00cd33ff68",
+      "Id": "baeeb22c71fb4728a4babb898916a3a1"
+    },
+    {
+      "Start": "22248a86def6480ba58d7fea5bf95aea",
+      "End": "89675ef5f96f4479a59afac0d10c15f2",
+      "Id": "0e5aba359e5649fcbed1ea22de15fa89"
+    },
+    {
+      "Start": "22248a86def6480ba58d7fea5bf95aea",
+      "End": "8d3ace73a86540128389ef7b5af8113b",
+      "Id": "17073125fb7742b39a2a5245be1ae5ba"
+    },
+    {
+      "Start": "3104d51a00da453698d552e419e10ef0",
+      "End": "36654c2a34dc4107909f140a410c3ffc",
+      "Id": "e6265dbf47b24dbd9c4737019ea344e2"
+    },
+    {
+      "Start": "2f8197dd490a4673b584885fcb93f270",
+      "End": "509c6eb826eb4b2baa5ba8576c2a95e5",
+      "Id": "ad49a3c6519b4c4db2cd54acf5fcc382"
+    },
+    {
+      "Start": "2a85d355848e433cbc1aaede3eb4825e",
+      "End": "d49cf5c8f06546088166d306c4e74409",
+      "Id": "253901978ace448588a403e237470f3b"
+    },
+    {
+      "Start": "fc05ea9050724b16bf61990613263135",
+      "End": "e1904687986f411ba410bf73e2972908",
+      "Id": "81778175327b4f2c841c0084dba3360c"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.10.1.3976",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": 2017.0255126953125,
+      "EyeY": 9550.033203125,
+      "EyeZ": 564.52154541015625,
+      "LookX": 9.7293701171875,
+      "LookY": -9535.4560546875,
+      "LookZ": 129.37518310546875,
+      "UpX": -0.073628298938274384,
+      "UpY": 0.20107822120189667,
+      "UpZ": -0.976804256439209
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Point.ByCoordinates",
+        "Id": "adffb21b98244681872bd7d24559fc6a",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -62.348197573783693,
+        "Y": 222.9339895245873
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Archimedean Spiral",
+        "Id": "1f67e11d29d54bbeb77c26278642de11",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 382.68784940428259,
+        "Y": 132.34398165216186
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "d6ed0993fce44bc596056aad956c615b",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 9.3581244158345953,
+        "Y": 444.14436089824335
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Archimedean Spiral (Prime)",
+        "Id": "3e16b86ddddc4413b4f552278430fe07",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 282.27623775292864,
+        "Y": 645.155971905891
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Point.ByCoordinates",
+        "Id": "ab1fb4baa0d246dd90b537a6c3ea1782",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1.6444731909581947,
+        "Y": 628.12366930172175
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Number Slider",
+        "Id": "c6752848096f4c7a84f41ed5b95ca756",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -479.64483769546439,
+        "Y": 692.23525792172143
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "NurbsCurve.ByPoints",
+        "Id": "27b2bfdf00eb4063aaa2c03d05f4ca6c",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 685.07590217445045,
+        "Y": 238.17659133343068
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "NurbsCurve.ByPoints",
+        "Id": "06bec9e5c4a14bf89d2b029f8485009c",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 658.42737062217964,
+        "Y": 523.8270897632251
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "12aacf7347394a0da5f67f0868768857",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1041.790110417634,
+        "Y": 215.54524160762924
+      }
+    ],
+    "Annotations": [],
+    "X": 187.77510645514923,
+    "Y": 79.409469094726546,
+    "Zoom": 0.60240855014369743
+  }
+}
