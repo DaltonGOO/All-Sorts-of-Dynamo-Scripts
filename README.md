@@ -8,4 +8,4 @@ The folder **"Intro to Parametric Modeling Dynamo"** will contain Dynamo scripts
 Check out the ParametricCamp here: https://www.youtube.com/c/ParametricCamp/videos The series is Intro to Parametric modeling.
 
 
-# The "TestingModel_Revit2022.rvt" is the model I am running all of the Dynamo graphs on.
+The "TestingModel_Revit2022.rvt" is the model I am running all of the Dynamo graphs on.
