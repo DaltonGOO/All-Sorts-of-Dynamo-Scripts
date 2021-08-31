@@ -1,0 +1,273 @@
+{
+  "Uuid": "22970b76-5566-435b-9ee3-469b4d8d8155",
+  "IsCustomNode": false,
+  "Description": null,
+  "Name": "Topolgy Simple Testing",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "DSRevitNodesUI.ElementsOfCategory, DSRevitNodesUI",
+      "NodeType": "ExtensionNode",
+      "Id": "9745e52117e748c3ab9ad433175e9642",
+      "Inputs": [
+        {
+          "Id": "1bfe32fb749b49dca7c60894340f1779",
+          "Name": "Category",
+          "Description": "The Category",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "7ad0ff77adfd4fef8f7d617b35004132",
+          "Name": "Elements",
+          "Description": "An element type.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Get all elements of the specified category from the model."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Revit.Elements.Category.ByName@string",
+      "Id": "e90ac5346afd4d40a7be314409bdf2c9",
+      "Inputs": [
+        {
+          "Id": "fc9dcfc3ea7149f7a204e419c297f4e5",
+          "Name": "name",
+          "Description": "The built in category name.\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "7bcbbb756a9f4d0a804d11fa4a4a0413",
+          "Name": "Category",
+          "Description": "Category",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Gets a Revit category by the built-in category name.\n\nCategory.ByName (name: string): Category"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "\"Walls\";",
+      "Id": "46776c306d424488a1b912f2543eba46",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "f733932e049a4427a986725972851ad9",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Topologic.Topology.ByGeometry@Autodesk.DesignScript.Geometry.Geometry,double",
+      "Id": "3666386c01854587837f8a00b368f679",
+      "Inputs": [
+        {
+          "Id": "946df44dfbd34f6587b359064c71c6a0",
+          "Name": "geometry",
+          "Description": "A geometry\n\nGeometry",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "696d6aaf9e5743d48a31181875cdce7e",
+          "Name": "tolerance",
+          "Description": "A positive tolerance value\n\ndouble\nDefault value : 0.0001",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "e4379d106fb2405c800f68248df5f4e3",
+          "Name": "Topology",
+          "Description": "The created Topology",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Creates a Topology by geometry.\n\nTopology.ByGeometry (geometry: Geometry, tolerance: double = 0.0001): Topology"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Revit.Elements.Element.Geometry",
+      "Id": "d78b43b92e38453482234fbe6089f6cc",
+      "Inputs": [
+        {
+          "Id": "64c3a8552f4e4461890c83217f14aed3",
+          "Name": "element",
+          "Description": "Revit.Elements.Element",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "2e76bc76b315429e87cdf0d98853ce6a",
+          "Name": "var[]",
+          "Description": "var[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Get all of the Geometry associated with this object\n\nElement.Geometry ( ): var[]"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "7ad0ff77adfd4fef8f7d617b35004132",
+      "End": "64c3a8552f4e4461890c83217f14aed3",
+      "Id": "26971af81dc744718de22a976444a3e1"
+    },
+    {
+      "Start": "7bcbbb756a9f4d0a804d11fa4a4a0413",
+      "End": "1bfe32fb749b49dca7c60894340f1779",
+      "Id": "2c7896c01cb3446785102e8d165b5f9c"
+    },
+    {
+      "Start": "f733932e049a4427a986725972851ad9",
+      "End": "fc9dcfc3ea7149f7a204e419c297f4e5",
+      "Id": "b3650f4ff225436693294f571e658dbd"
+    },
+    {
+      "Start": "2e76bc76b315429e87cdf0d98853ce6a",
+      "End": "946df44dfbd34f6587b359064c71c6a0",
+      "Id": "7285f6144d8643d3886782c38fb9c7ef"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [
+    {
+      "Name": "Topologic",
+      "Version": "1.4.0",
+      "ReferenceType": "Package",
+      "Nodes": [
+        "3666386c01854587837f8a00b368f679"
+      ]
+    }
+  ],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.10.1.3976",
+      "RunType": "Automatic",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": 75.1455307006836,
+      "EyeY": 86.100326538085938,
+      "EyeZ": 53.091217041015625,
+      "LookX": 5.4755744934082031,
+      "LookY": -54.635871887207031,
+      "LookZ": -64.009689331054688,
+      "UpX": 0.040013857185840607,
+      "UpY": 0.88294762372970581,
+      "UpZ": -0.467763215303421
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "All Elements of Category",
+        "Id": "9745e52117e748c3ab9ad433175e9642",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 753.6,
+        "Y": 398.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Category.ByName",
+        "Id": "e90ac5346afd4d40a7be314409bdf2c9",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 504.51144708423305,
+        "Y": 391.63282937365011
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "46776c306d424488a1b912f2543eba46",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 344.51144708423328,
+        "Y": 387.23282937365
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Topology.ByGeometry",
+        "Id": "3666386c01854587837f8a00b368f679",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1391.4427645788337,
+        "Y": 373.36760259179277
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Element.Geometry",
+        "Id": "d78b43b92e38453482234fbe6089f6cc",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 963.516198704104,
+        "Y": 347.34168466522686
+      }
+    ],
+    "Annotations": [],
+    "X": -1489.67,
+    "Y": 29.951999999999998,
+    "Zoom": 1.1575
+  }
+}
