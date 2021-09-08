@@ -1,0 +1,96 @@
+{
+  "Uuid": "c30af9cb-9b65-47ca-91d5-e8faa9153d52",
+  "IsCustomNode": false,
+  "Description": null,
+  "Name": "Closest Pair of Points",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Load the Python Standard and DesignScript Libraries\r\nimport sys\r\nimport clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n\r\ndyn_points = IN[0]\r\npoints = []\r\ntext = IN[1]\r\n\r\n\r\nfor p in dyn_points:\r\n    points.append((p.X,p.Y))    \r\n\r\ndef dist(p1, p2):\r\n    x1, y1 = p1\r\n    x2, y2 = p2\r\n    dis = ((x1-x2)**2 + (y1-y2)**2)**0.5\r\n    return dis\r\n\r\ndef offices_to_merge(points):\r\n    current_minimum = float('inf')\r\n    min_p1 = -1\r\n    min_p2 = -1\r\n    for i in range(len(points)):\r\n        for j in range(i+1, len(points)):\r\n            dis = dist(points[i], points[j])\r\n            if dis < current_minimum:\r\n                min_p1 = i\r\n                min_p2 = j\r\n                current_minimum = dis\r\n    return (min_p1, min_p2)\r\n    \r\ntext_pair = offices_to_merge(points)\r\n \r\n \r\ndef pair_text(text,points):\r\n    paired_text = []\r\n    text_pair = offices_to_merge(points)\r\n    \r\n    paired_text.append(text.pop(text_pair[0]))\r\n    paired_text.append(text.pop(text_pair[1]-1))\r\n    \r\n    points.pop(text_pair[0])\r\n    points.pop(text_pair[1]-1)\r\n    \r\n    \r\n    return paired_text\r\n\r\nOUT = []\r\nx = True\r\nwhile x:\r\n    if len(points) > 1:\r\n        OUT.append(pair_text(text, points))\r\n    else:\r\n        x = False\r\n        break\r\n",
+      "Engine": "IronPython2",
+      "VariableInputPorts": true,
+      "Id": "5ff2cd14f24542128d42089a5a2e19cb",
+      "Inputs": [
+        {
+          "Id": "ca4db3e18eb74eab8be01f4bde7d5a33",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "c3a9ccaf635641e19cbae94de80d8e00",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "89d424b6908e4380b803be2506132225",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded Python script."
+    }
+  ],
+  "Connectors": [],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.10.1.3976",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": false,
+        "Name": "Python Script",
+        "Id": "5ff2cd14f24542128d42089a5a2e19cb",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 216.80000000000018,
+        "Y": 181.60000000000036
+      }
+    ],
+    "Annotations": [],
+    "X": 0.0,
+    "Y": 0.0,
+    "Zoom": 1.0
+  }
+}

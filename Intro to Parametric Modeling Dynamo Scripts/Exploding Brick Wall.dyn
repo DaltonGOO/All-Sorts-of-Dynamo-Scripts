@@ -1843,45 +1843,6 @@
       "Description": "A slider that produces numeric values."
     },
     {
-      "ConcreteType": "CoreNodeModels.CreateList, CoreNodeModels",
-      "VariableInputPorts": true,
-      "NodeType": "ExtensionNode",
-      "Id": "f06bd29493af4adab92daa83e4a8463a",
-      "Inputs": [
-        {
-          "Id": "07d7cc19f8cd4ee48764503686db1816",
-          "Name": "item0",
-          "Description": "Item Index #0",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "c52f528c2cc2464f9b60c00cae7121a4",
-          "Name": "item1",
-          "Description": "Item Index #1",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "fb2f23c22d6643e38c133403dba482de",
-          "Name": "list",
-          "Description": "A list (type: var[]..[])",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Disabled",
-      "Description": "Makes a new list out of the given inputs"
-    },
-    {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
       "FunctionSignature": "Autodesk.DesignScript.Geometry.Plane.Origin",
@@ -2147,45 +2108,6 @@
       ],
       "Replication": "Auto",
       "Description": "Translate geometry in the given direction by the vector length\n\nGeometry.Translate (direction: Vector): Geometry"
-    },
-    {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "DSCore.List.Flatten@var[]..[],int",
-      "Id": "8db566007fe6479c8053e17efee54b19",
-      "Inputs": [
-        {
-          "Id": "5360a5617a124066b87954f94cbd77f4",
-          "Name": "list",
-          "Description": "List to flatten.\n\nvar[]..[]",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "32fc9491f2b04f60aa5bd2d0c5c64392",
-          "Name": "amt",
-          "Description": "Layers of nesting to remove.\n\nint\nDefault value : -1",
-          "UsingDefaultValue": true,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "fa7d937e72f54f8cabf0056ff7d6c310",
-          "Name": "var[]..[]",
-          "Description": "var[]..[]",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Auto",
-      "Description": "Flattens a nested list of lists by a certain amount.\n\nList.Flatten (list: var[]..[], amt: int = -1): var[]..[]"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -3114,15 +3036,15 @@
     },
     "Camera": {
       "Name": "Background Preview",
-      "EyeX": 5.00692081451416,
-      "EyeY": 3.301424503326416,
-      "EyeZ": 2.2536914348602295,
-      "LookX": -2.8140015602111816,
-      "LookY": -1.6359314918518066,
-      "LookZ": -3.5111100673675537,
-      "UpX": -0.082707583904266357,
-      "UpY": 0.99121612310409546,
-      "UpZ": -0.103199802339077
+      "EyeX": 6.1103925704956055,
+      "EyeY": 5.2704877853393555,
+      "EyeZ": 1.4339051246643066,
+      "LookX": -3.917473316192627,
+      "LookY": -3.6049947738647461,
+      "LookZ": -2.6913237571716309,
+      "UpX": -0.3457220196723938,
+      "UpY": 0.90777897834777832,
+      "UpZ": -0.23751559853553772
     },
     "NodeViews": [
       {
@@ -3626,16 +3548,6 @@
         "Y": 665.01609672554923
       },
       {
-        "ShowGeometry": false,
-        "Name": "List Create",
-        "Id": "f06bd29493af4adab92daa83e4a8463a",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 4776.88370324686,
-        "Y": -11.60399192250793
-      },
-      {
         "ShowGeometry": true,
         "Name": "Plane.Origin",
         "Id": "33cafa5459f94addbfb8bd01873e2bdc",
@@ -3652,8 +3564,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 5247.5385394242967,
-        "Y": 237.79328746382416
+        "X": 5250.0482496465729,
+        "Y": 200.14763412968992
       },
       {
         "ShowGeometry": true,
@@ -3662,8 +3574,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 4882.6383706220768,
-        "Y": 253.75705762091405
+        "X": 4885.148080844353,
+        "Y": 216.11140428677982
       },
       {
         "ShowGeometry": true,
@@ -3672,8 +3584,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 4884.8064307095719,
-        "Y": 166.06507673966286
+        "X": 4887.3161409318482,
+        "Y": 128.41942340552862
       },
       {
         "ShowGeometry": true,
@@ -3714,16 +3626,6 @@
         "Excluded": false,
         "X": 6715.4450693606432,
         "Y": 255.0693547858059
-      },
-      {
-        "ShowGeometry": false,
-        "Name": "List.Flatten",
-        "Id": "8db566007fe6479c8053e17efee54b19",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 5073.40834051888,
-        "Y": 1383.6300709763395
       },
       {
         "ShowGeometry": true,
@@ -3847,8 +3749,8 @@
       }
     ],
     "Annotations": [],
-    "X": -148.31498423557179,
-    "Y": 237.85143321648906,
-    "Zoom": 0.15029147506412466
+    "X": -210.1286446905653,
+    "Y": 200.22139150594774,
+    "Zoom": 0.15775350449016748
   }
 }
