@@ -1,0 +1,175 @@
+{
+  "Uuid": "256e2af0-c025-43a1-a817-99a937b81a6d",
+  "IsCustomNode": false,
+  "Description": null,
+  "Name": "Sine",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Load the Python Standard and DesignScript Libraries\r\nimport sys\r\nimport clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\nfrom math import * \r\n# The inputs to this node will be stored as a list in the IN variables.\r\nfreq = IN[0]\r\nlength = IN[1]\r\npoints = []\r\n\r\n# Place your code below this line\r\ndef sine(freq = 0, length = 1):\r\n    if length <= 1:\r\n        return \"The length must be greater than 1.\"\r\n    else:    \r\n        for i in range(length):\r\n            x = 5 * i\r\n            z = freq * sin(i)\r\n            points.append(Point.ByCoordinates(x,0,z))\r\n        curve = NurbsCurve.ByPoints(points)\r\n        return curve\r\n\r\n# Assign your output to the OUT variable.\r\nOUT = sine(freq, length)",
+      "Engine": "CPython3",
+      "VariableInputPorts": true,
+      "Id": "b8650d5aadf44d3e8c57092175307c1d",
+      "Inputs": [
+        {
+          "Id": "bb5a4962147d4772a535c0714f81ec72",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "a6b846be7b954209885f9421c0ec6446",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "f04a973923074a19890f9f574ce61130",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded Python script."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.DoubleSlider, CoreNodeModels",
+      "NodeType": "NumberInputNode",
+      "NumberType": "Double",
+      "MaximumValue": 100.0,
+      "MinimumValue": 0.0,
+      "StepValue": 0.1,
+      "InputValue": 9.4,
+      "Id": "9a1089e89dd04084bac8085f2fe1cab6",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "ffab1f6f7ee8439e8b3edf33d5c9521d",
+          "Name": "",
+          "Description": "Double",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A slider that produces numeric values."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.IntegerSlider, CoreNodeModels",
+      "NodeType": "NumberInputNode",
+      "NumberType": "Integer",
+      "InputValue": 54,
+      "MaximumValue": 100,
+      "MinimumValue": -5,
+      "StepValue": 1,
+      "Id": "f2a1745e28c9406292f0d6097289c3a8",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "97b412ede199423cbfe5e3711746365b",
+          "Name": "",
+          "Description": "Int64",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A slider that produces integer values."
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "ffab1f6f7ee8439e8b3edf33d5c9521d",
+      "End": "bb5a4962147d4772a535c0714f81ec72",
+      "Id": "d09ffc44743e41c69656ed179862caa5"
+    },
+    {
+      "Start": "97b412ede199423cbfe5e3711746365b",
+      "End": "a6b846be7b954209885f9421c0ec6446",
+      "Id": "fc54ea07c9424d13b82aa16fbb43d914"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.10.1.3976",
+      "RunType": "Automatic",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": 78.649169921875,
+      "EyeY": 49.903732299804688,
+      "EyeZ": 209.31132507324219,
+      "LookX": 29.742530822753906,
+      "LookY": -26.808609008789063,
+      "LookZ": -199.26530456542969,
+      "UpX": -0.012353190220892429,
+      "UpY": 0.996492862701416,
+      "UpZ": 0.082761608064174652
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "b8650d5aadf44d3e8c57092175307c1d",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 91.424622030237572,
+        "Y": 137.64838012958961
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Number Slider",
+        "Id": "9a1089e89dd04084bac8085f2fe1cab6",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -292.53650107991371,
+        "Y": 128.29114470842333
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Integer Slider",
+        "Id": "f2a1745e28c9406292f0d6097289c3a8",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -293.5766738660908,
+        "Y": 205.19999999999996
+      }
+    ],
+    "Annotations": [],
+    "X": 583.569,
+    "Y": 52.228999999999985,
+    "Zoom": 1.1575
+  }
+}

@@ -942,9 +942,24 @@
         "Y": 1140.9901989493419
       }
     ],
-    "Annotations": [],
-    "X": 264.42371214729036,
-    "Y": -99.177174787639444,
-    "Zoom": 0.45744602594059225
+    "Annotations": [
+      {
+        "Id": "38df2186ef4d490db673163c1077f0e8",
+        "Title": "Point in polygon:\r\nhttps://en.wikipedia.org/wiki/Point_in_polygon\r\n\r\nWinding number:\r\nhttps://en.wikipedia.org/wiki/Winding_number\r\n\r\nEven-odd rule:\r\nhttps://en.wikipedia.org/wiki/Even%E2%80%93odd_rule\r\n\r\nSemi-infinite:\r\nhttps://en.wikipedia.org/wiki/Semi-infinite\r\n\r\nComputational Geometry in Python:\r\nhttps://www.toptal.com/python/computational-geometry-in-python-from-theory-to-implementation",
+        "Nodes": [],
+        "Left": -1060.7652296484919,
+        "Top": -51.985009110303508,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      }
+    ],
+    "X": 2068.0250880949161,
+    "Y": 237.6621481108192,
+    "Zoom": 1.7645371824726139
   }
 }
