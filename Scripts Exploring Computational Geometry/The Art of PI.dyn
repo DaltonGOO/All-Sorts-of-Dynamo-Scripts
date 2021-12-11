@@ -2,7 +2,7 @@
   "Uuid": "db4c3c59-b134-41b7-98a2-c6f859b84770",
   "IsCustomNode": false,
   "Description": "",
-  "Name": "Pi_Art",
+  "Name": "The Art of PI",
   "ElementResolver": {
     "ResolutionMap": {}
   },
@@ -1007,7 +1007,7 @@
       "Inputs": [],
       "Outputs": [
         {
-          "Id": "504051fa41d4437bb6d3c2cc747da559",
+          "Id": "4a6cf395c41a475ba3870dc41e27ff68",
           "Name": "",
           "Description": "Value of expression at line 1",
           "UsingDefaultValue": false,
@@ -1027,7 +1027,7 @@
       "Inputs": [],
       "Outputs": [
         {
-          "Id": "fbfc595c6ac64d5786c6ec264e0b6d3d",
+          "Id": "7323330cecb741ff8ec2be0bf871a342",
           "Name": "",
           "Description": "Value of expression at line 1",
           "UsingDefaultValue": false,
@@ -1251,14 +1251,14 @@
       "Id": "55bca35635e144fa9e917b78c14ad174"
     },
     {
-      "Start": "504051fa41d4437bb6d3c2cc747da559",
+      "Start": "4a6cf395c41a475ba3870dc41e27ff68",
       "End": "f7e1e35fa0b44ef7a4059caa03a74a26",
-      "Id": "5efd449048b24268b4722ad88697cee7"
+      "Id": "62e05d48568d4613a925958c2b3ea90c"
     },
     {
-      "Start": "fbfc595c6ac64d5786c6ec264e0b6d3d",
+      "Start": "7323330cecb741ff8ec2be0bf871a342",
       "End": "05f29a24e74043088f27615d25988646",
-      "Id": "a8a4e971e5374955988818c183e0c327"
+      "Id": "18776b5a470e40e59bd701c91b4a0c56"
     }
   ],
   "Dependencies": [],
@@ -1292,12 +1292,12 @@
     },
     "Camera": {
       "Name": "Background Preview",
-      "EyeX": 9.87004566192627,
-      "EyeY": 23.296937942504883,
-      "EyeZ": 3.862757682800293,
-      "LookX": -0.057918548583984375,
-      "LookY": -6.2299575805664063,
-      "LookZ": -2.5316309928894043,
+      "EyeX": 11.5792818069458,
+      "EyeY": 26.42193603515625,
+      "EyeZ": 0.52734375,
+      "LookX": -0.072164535522460938,
+      "LookY": -7.76231575012207,
+      "LookZ": -3.1543231010437012,
       "UpX": -0.018849711865186691,
       "UpY": 0.56640607118606567,
       "UpZ": -0.82391071319580078
@@ -1530,8 +1530,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 2678.9622263161341,
-        "Y": 416.17820460187903
+        "X": 3458.0417901237397,
+        "Y": 618.70932460499466
       },
       {
         "ShowGeometry": false,
@@ -1550,8 +1550,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 3173.07704699737,
-        "Y": 1030.4983638685742
+        "X": 3189.1689415531064,
+        "Y": 1062.6821529800468
       },
       {
         "ShowGeometry": true,
@@ -1610,13 +1610,13 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 3553.394725942062,
-        "Y": 1000.1241553571409
+        "X": 3466.9595843265329,
+        "Y": 990.1109988090974
       }
     ],
     "Annotations": [],
-    "X": -3332.8776081422943,
-    "Y": -375.21734241985882,
-    "Zoom": 1.1067944483854255
+    "X": -2348.9575075906205,
+    "Y": -320.65808309466024,
+    "Zoom": 0.8101162140698126
   }
 }
