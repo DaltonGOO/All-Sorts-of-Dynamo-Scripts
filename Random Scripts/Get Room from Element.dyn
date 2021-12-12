@@ -1,0 +1,290 @@
+{
+  "Uuid": "8aac273b-0254-4d29-a1a4-05f9bf135b4c",
+  "IsCustomNode": false,
+  "Description": "",
+  "Name": "Get Room from Element",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "import sys\r\nsys.path.append(\"C:\\\\Users\\\\dalto\\\\anaconda3\\\\envs\\\\Dynamo_210\\\\Lib\")\r\nsys.path.append(\"C:\\\\Users\\\\dalto\\\\OneDrive\\\\My Stuff\\\\GitHub\\\\All-Sorts-of-Dynamo-Scripts\\\\Python Module\")\r\n\r\nimport clr\r\n\r\nclr.AddReference('RevitAPI')\r\nfrom Autodesk.Revit.DB import *\r\nfrom Autodesk.Revit.DB.Structure import *\r\n\r\nclr.AddReference('RevitAPIUI')\r\nfrom Autodesk.Revit.UI import *\r\n\r\nclr.AddReference('System')\r\nfrom System.Collections.Generic import List\r\n\r\nclr.AddReference('RevitNodes')\r\nimport Revit\r\nclr.ImportExtensions(Revit.GeometryConversion)\r\nclr.ImportExtensions(Revit.Elements)\r\n\r\nclr.AddReference('RevitServices')\r\nimport RevitServices\r\nfrom RevitServices.Persistence import DocumentManager\r\nfrom RevitServices.Transactions import TransactionManager\r\n\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\nuidoc=DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument\r\n\r\n#check to see if element is not list and if so return list\r\n\r\ndef check_list(elements):\r\n    if not isinstance(elements, list):\r\n        elements = [elements]\r\n    return elements\r\n\r\nelements = check_list(IN[0])\r\nelements = UnwrapElement(elements)\r\nphase = UnwrapElement(IN[1])\r\n\r\nif phase == None:\r\n\tphase = list(doc.Phases)[-1]\r\n\r\nOUT = []\r\nfor element in elements:\r\n    OUT.append(element.Room[phase])\r\n",
+      "Engine": "IronPython2",
+      "VariableInputPorts": true,
+      "Id": "c6c6e6e70c794da8ac49d66610be9e70",
+      "Inputs": [
+        {
+          "Id": "e91fa01c675247739d5c906a9fd781c7",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "e7f851d063cf4e559e613b5dd776d9d6",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "880c3d7b80574969bb2c679d01ec0a76",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded Python script."
+    },
+    {
+      "ConcreteType": "DSRevitNodesUI.RevitPhases, DSRevitNodesUI",
+      "SelectedIndex": 1,
+      "SelectedString": "New Construction",
+      "NodeType": "ExtensionNode",
+      "Id": "2f902ab6022c4334b3a772b3969cabb9",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "7f604c97cbab4ecbb5f6763df3fd7953",
+          "Name": "Phase",
+          "Description": "The selected Phase",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Select an existing Revit Phase from the active document."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Revit.Elements.Element.GetParameterValueByName@string",
+      "Id": "269d4d4c0cfb43cf9addf43e1d1b543e",
+      "Inputs": [
+        {
+          "Id": "b4f70ecb0ac34ce3aa67a80e87e4175f",
+          "Name": "element",
+          "Description": "Revit.Elements.Element",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "5b88e21e8f4141e9a1c72c3581dce62c",
+          "Name": "parameterName",
+          "Description": "The name of the parameter whose value you want to obtain.\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "5198080f44fe41cc8d5b245037d3e28c",
+          "Name": "var[]..[]",
+          "Description": "var[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Get the value of one of the element's parameters.\n\nElement.GetParameterValueByName (parameterName: string): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "\"Name\";",
+      "Id": "05ee916323764098b6973c060e26ab17",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "ca2529a8e35c4e60b63b3f08065a2539",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.ComboNodes.DSModelElementsByCategorySelection, DSRevitNodesUI",
+      "SelectedIndex": 258,
+      "NodeType": "ExtensionNode",
+      "InstanceId": [
+        "21d5dfed-5db8-46dd-8f45-ad895baa6075-00058c38",
+        "21d5dfed-5db8-46dd-8f45-ad895baa6075-0005903e",
+        "21d5dfed-5db8-46dd-8f45-ad895baa6075-00059091",
+        "21d5dfed-5db8-46dd-8f45-ad895baa6075-00059099",
+        "21d5dfed-5db8-46dd-8f45-ad895baa6075-000590bc"
+      ],
+      "Id": "79ba76acb6d74f0dafcbc910f08c2b82",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "8465197bf77a475cb625d482ca578b3c",
+          "Name": "Elements",
+          "Description": "The selected elements.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "880c3d7b80574969bb2c679d01ec0a76",
+      "End": "b4f70ecb0ac34ce3aa67a80e87e4175f",
+      "Id": "8dbe13da33bd4839909524f1cfc0cbca"
+    },
+    {
+      "Start": "ca2529a8e35c4e60b63b3f08065a2539",
+      "End": "5b88e21e8f4141e9a1c72c3581dce62c",
+      "Id": "9b655f0804a74b44aabffc1930f78e95"
+    },
+    {
+      "Start": "8465197bf77a475cb625d482ca578b3c",
+      "End": "e91fa01c675247739d5c906a9fd781c7",
+      "Id": "3937764ea1d74eb8907d27899e769424"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "Thumbnail": "",
+  "GraphDocumentationURL": null,
+  "ExtensionWorkspaceData": [
+    {
+      "ExtensionGuid": "28992e1d-abb9-417f-8b1b-05e053bee670",
+      "Name": "Properties",
+      "Version": "2.12",
+      "Data": {}
+    }
+  ],
+  "Author": "",
+  "Linting": {
+    "activeLinter": "None",
+    "activeLinterId": "7b75fb44-43fd-4631-a878-29f4d5d8399a",
+    "warningCount": 0,
+    "errorCount": 0
+  },
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.12.0.5650",
+      "RunType": "Automatic",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "c6c6e6e70c794da8ac49d66610be9e70",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 655.522711391679,
+        "Y": 117.38079240747007
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Select Phase",
+        "Id": "2f902ab6022c4334b3a772b3969cabb9",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 236.21380747638671,
+        "Y": 255.19843898723894
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Element.GetParameterValueByName",
+        "Id": "269d4d4c0cfb43cf9addf43e1d1b543e",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1044.40144154624,
+        "Y": 101.74001201103431
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "05ee916323764098b6973c060e26ab17",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 889.59526667347984,
+        "Y": 187.70400415591888
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Select Model Elements By Category",
+        "Id": "79ba76acb6d74f0dafcbc910f08c2b82",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 150.82406845164377,
+        "Y": -89.563767018175355
+      }
+    ],
+    "Annotations": [
+      {
+        "Id": "8189bb24c245458592fdf203e053e550",
+        "Title": "If phase is not plugged in it will default to the last phase. IN[1]",
+        "Nodes": [],
+        "Left": 612.27331021600889,
+        "Top": 62.168732891042254,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      }
+    ],
+    "X": 295.88211326151992,
+    "Y": 279.57191489132475,
+    "Zoom": 0.60906559778322655
+  }
+}
