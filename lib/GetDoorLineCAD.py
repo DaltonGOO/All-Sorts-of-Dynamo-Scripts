@@ -71,7 +71,7 @@ def flatten_list_arcs(arcs):
 def flatten_list_lines(lines):
     flat_list = []
     for i in lines:
-        if isinstance(i[0], list):
+        if isinstance(i, list):
             for j in i:
                 flat_list.append(j)
         else:
@@ -80,15 +80,18 @@ def flatten_list_lines(lines):
 
 arcs = []
 lines = []
+
 for i in lines_input:
-    arcs, lines = find_arcs(lines_input)
-    lines = flatten_list_lines(lines)
-    arcs = flatten_list_arcs(arcs)
+    a, l = find_arcs(i)
+    arcs.extend(flatten_list_arcs(a))
+    #check to see if i is a list of list
+    if isinstance(l[0], list):
+        lines.extend(l)
+    else:
+        lines.append(l)
 
-    
-
-
-
+#duplicate lines to a new list to maybe use for creation of rooms    
+door_and_frame = lines[:]
 
 #remove lines that are smaller that largest line
 def remove_small_lines(lines):
@@ -104,10 +107,12 @@ def remove_small_lines(lines):
     return lines
 
 
+
 main_lines = []
 for i in lines:
     i = remove_small_lines(i)
     main_lines.append(i)
+
 
 
 #clean out lines that are similar to each other
@@ -168,7 +173,6 @@ for i in main_lines:
     cleaned_lines.append(i)
 
 
-
 #find lines point of arc that is closest to door line point
 def find_doorway_points(lines, arc):
     #find distence between arc enpoint and startpoint to lines startpoint and endpoint
@@ -225,7 +229,7 @@ def find_doorway_points(lines, arc):
         point_from_arc = arc.StartPoint
         
     #draw line from line and arc point to create the doorway line
-    doorway_line = line.byStartPointEndPoint(point_from_line, point_from_arc)
+    doorway_line = line.ByStartPointEndPoint(point_from_line, point_from_arc)
         
     return point_from_line, point_from_arc, line, arc, doorway_line
 
@@ -233,7 +237,7 @@ def find_doorway_points(lines, arc):
 #find lines point of arc that is closest to door line point
 for l,a in zip(cleaned_lines, arcs):
     point_from_line, point_from_arc, line, arc, doorway_line = find_doorway_points(l, a)
-    
     OUT.append([point_from_line, point_from_arc, line, arc, doorway_line])
+OUT.append(door_and_frame) 
     
       
