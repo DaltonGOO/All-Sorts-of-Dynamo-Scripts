@@ -33,39 +33,82 @@ doc = DocumentManager.Instance.CurrentDBDocument
 uidoc=DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument
 
 #Preparing input from dynamo to revit
-lines = UnwrapElement(IN[0])
+lines_input = UnwrapElement(IN[0])
 
+OUT = []
+
+
+#find arcs in list of lines
 def find_arcs(lines):
     lines = list(lines)
     arcs = []
+    temp_lines = []
     for index, line in enumerate(lines):
         if line.GetType().Name == 'Arc':
             arcs.append(line)
             lines.pop(index)
-    return arcs, lines
-    
-arcs, lines = find_arcs(lines)
+    #check to see if there are more than one arc and if so separate them into their own lists and duplicate the lines
+    if len(arcs) > 1:
+        for arc in arcs:
+            temp_lines.append(lines)
+        return arcs, temp_lines
+    else:
+        return arcs, lines
 
+
+#flatten arc list to one list
+def flatten_list_arcs(arcs):
+    flat_list = []
+    for i in arcs:
+        if isinstance(i, list):
+            for j in i:
+                flat_list.append(j)
+        else:
+            flat_list.append(i)
+    return flat_list
+
+#flatten lines list to one list
+def flatten_list_lines(lines):
+    flat_list = []
+    for i in lines:
+        if isinstance(i[0], list):
+            for j in i:
+                flat_list.append(j)
+        else:
+            flat_list.append(i)
+    return flat_list
+
+arcs = []
+lines = []
+for i in lines_input:
+    arcs, lines = find_arcs(lines_input)
+    lines = flatten_list_lines(lines)
+    arcs = flatten_list_arcs(arcs)
+
+    
 
 
 
 
 #remove lines that are smaller that largest line
-line_lengths = []
-for line in lines:
-    line_lengths.append(line.Length)
+def remove_small_lines(lines):
+    #find largest line
+    largest_line = lines[0]
+    for line in lines:
+        if line.Length > largest_line.Length:
+            largest_line = line
+    
+    #remove lines that are smaller than largest line
+    lines = [l for l in lines if l.Length > largest_line.Length/1.5]
 
-# sometimes this doesn't find the all the short lines??
-max_line_length = max(line_lengths)
-for line in lines:
-    if line.Length < max_line_length:
-        lines.remove(line)
+    return lines
 
 
-max_line_length = max(line_lengths)
-for line in lines:
-    if line.Length < max_line_length:
-        lines.remove(line)
+main_lines = []
+for i in lines:
+    i = remove_small_lines(i)
+    main_lines.append(i)
+
 
 #clean out lines that are similar to each other
 def clean_lines(lines):
@@ -84,7 +127,7 @@ def clean_lines(lines):
     #remove similar sublists
     templist2 = list(lines_xy) #defined new templist outside of loop to avoid modifying the list in the loop
     for index, i in enumerate(lines_xy):
-        templist = templist2[index:] #starts at index of main loop to avoid checking the same line twice
+        templist = templist2[index+1:] #starts at index of main loop to avoid checking the same line twice
         
         for index2, i2 in enumerate(templist):
 
@@ -107,19 +150,27 @@ def clean_lines(lines):
 
 
             #if the distance between the two lines is less than the max distance between the lines then remove the second line
-            if a1_diff < 0.1 and a2_diff < 0.1 and b1_diff < 0.1 and b2_diff < 0.1:
-                del lines[index2]
-                del templist2[index2]
+            if a1_diff < 0.01 and a2_diff < 0.01 and b1_diff < 0.01 and b2_diff < 0.01:
+                try:
+                    del lines[index2]
+                    del templist2[index2]
+                except:
+                    pass
                 #we don't break the loop because we want to check the next line in the list in case there are more similar lines
         
     return lines 
-             
 
-lines = clean_lines(lines)
+
+#clean out lines that are similar to each other
+cleaned_lines = []
+for i in main_lines:
+    i = clean_lines(i)
+    cleaned_lines.append(i)
+
+
 
 #find lines point of arc that is closest to door line point
-def find_closest_line(lines, arcs):
-    arc = arcs[0]
+def find_doorway_points(lines, arc):
     #find distence between arc enpoint and startpoint to lines startpoint and endpoint
     line_start_dist_to_arc_start = []
     line_end_dist_to_arc_start = []
@@ -159,26 +210,30 @@ def find_closest_line(lines, arcs):
     #we use this list of strings to get the point we want to use from the line and arc
     point_type_combination = [['StartPoint', 'StartPoint'], ['EndPoint', 'StartPoint'], ['StartPoint', 'EndPoint'], ['EndPoint', 'EndPoint']]
     combination = point_type_combination[min_index]
+
+    #get point from line and return opposite point
     if combination[0] == 'StartPoint':
-        point = line.StartPoint
+        point_from_line = line.EndPoint
     else:
-        point = line.EndPoint
+        point_from_line = line.StartPoint
     
  
-    #get point from arc
+    #get point from arc  and return opposite point
     if combination[1] == 'StartPoint':
-        point_from_arc = arc.StartPoint
-    else:
         point_from_arc = arc.EndPoint
+    else:
+        point_from_arc = arc.StartPoint
         
- 
+    #draw line from line and arc point to create the doorway line
+    doorway_line = line.byStartPointEndPoint(point_from_line, point_from_arc)
         
-    return lines, temp_line_min_indexes, temp_line_min_values, min_index
-        
-        
-        
-        
-        
-        #do some action in a Transaction
+    return point_from_line, point_from_arc, line, arc, doorway_line
 
-OUT = find_closest_line(lines, arcs)
+
+#find lines point of arc that is closest to door line point
+for l,a in zip(cleaned_lines, arcs):
+    point_from_line, point_from_arc, line, arc, doorway_line = find_doorway_points(l, a)
+    
+    OUT.append([point_from_line, point_from_arc, line, arc, doorway_line])
+    
+      
