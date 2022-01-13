@@ -9,6 +9,7 @@
 #import sys
 import sys
 import os
+import uuid
 import clr
 clr.AddReference('RevitAPI')
 clr.AddReference('RevitAPIUI')
@@ -62,7 +63,7 @@ def createSchemaAndStoreData_2022(doc, element):
 
     #TransactionManager.Instance.EnsureInTransaction(doc)
     #set the value of the field
-    entity.Set<XYZ>(field, XYZ(int(113421541235),int(111),int(1)), UnitTypeId.Meters)
+    entity.Set<XYZ>(field, XYZ(int(113421541235),int(111),int(1)), UnitTypeId.Inch)
     element.SetEntity(entity)
     TransactionManager.Instance.TransactionTaskDone()
     #get the data back from the wall
@@ -72,13 +73,14 @@ def createSchemaAndStoreData_2022(doc, element):
     TransactionManager.Instance.TransactionTaskDone()
     return retrievedEntity.Get<XYZ>(schema.GetField("Element_Location"))
 
-#revit 2021
+#revit 2020
 def createSchemaAndStoreData_2021(doc, element): 
     """
     Create a schema and store data in a view element
     """
     TransactionManager.Instance.EnsureInTransaction(doc)
-    #create a new revit guid
+    #Create GUID from a string
+
     schemaGuid = Guid.NewGuid()
     schemaBuilder = ExtensibleStorage.SchemaBuilder(schemaGuid)
     #set read/write access
@@ -99,16 +101,72 @@ def createSchemaAndStoreData_2021(doc, element):
     #get the field from the schema
     field = schema.GetField("Element_Location")
     #set the value of the field
-
+	
     #TransactionManager.Instance.EnsureInTransaction(doc)
     #set the value of the field
-    entity.Set<XYZ>(field, XYZ(int(113421541235),int(111),int(1)), UnitTypeId.Meters)
+    entity.Set(field, XYZ(1,2,3), DisplayUnitType.DUT_DECIMAL_FEET)
     element.SetEntity(entity)
+
     TransactionManager.Instance.TransactionTaskDone()
-    #get the data back from the wall
+    return 
+
+#get schemas from the element
+def getSchemasFromElement(element):
+    """
+    Get the schemas from the element
+    """
     TransactionManager.Instance.EnsureInTransaction(doc)
-    retrievedEntity = element.GetEntity(schema)
-    retrievedEntity.Get<XYZ>(schema.GetField("Element_Location"))
-    TransactionManager.Instance.TransactionTaskDone()
-    return retrievedEntity.Get<XYZ>(schema.GetField("Element_Location"))
+    #get the schemas from the element
+    schemas = element.GetEntitySchemaGuids()
+    #get the schema names from the schemas
+    schemaNames = [ExtensibleStorage.Schema.Lookup(schema).SchemaName for schema in schemas]
+
+    for index,i in enumerate(schemaNames):
+        if i == "ElementLocation":
+            schemaGuid = schemas[index]
+            schema = ExtensibleStorage.Schema.Lookup(schemaGuid)
+            TransactionManager.Instance.TransactionTaskDone()
+            return schema
+            break
+        else:
+       		return None
     
+
+
+#get value of element location from the schema
+def getValueFromSchema(element, schema):
+    """
+    Get the value from the schema
+    """
+    if schema is not None:
+        TransactionManager.Instance.EnsureInTransaction(doc)
+	    #get the value from the schema
+        fieldType = schema.GetField("Element_Location").GetType()
+        t = schema.GetField("Element_Location")
+        value = element.GetEntity(schema).Get[t.ValueType](schema.GetField("Element_Location"),DisplayUnitType.DUT_DECIMAL_FEET)
+	    
+	    #get the value from the schema
+        TransactionManager.Instance.TransactionTaskDone()
+        return value
+    else:
+        return "There is no schema to get the value from"
+    
+
+schema = getSchemasFromElement(element)
+
+def deleteSchemaFromElement(element, schema):
+    """
+    Delete the schema from the element
+    """
+    if schema is not None:
+        TransactionManager.Instance.EnsureInTransaction(doc)
+        #delete the schema from the element
+        element.DeleteEntity(schema)
+        TransactionManager.Instance.TransactionTaskDone()
+        return "Schema deleted"
+    else:
+        return "There is no schema to delete"
+
+OUT = getValueFromSchema(element, schema)
+
+
