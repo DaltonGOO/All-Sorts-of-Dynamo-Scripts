@@ -1,0 +1,247 @@
+{
+  "Uuid": "c60e2e43-ac1f-4c35-bca1-7fdef28ce8c4",
+  "IsCustomNode": false,
+  "Description": null,
+  "Name": "Update Views",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "\"\"\"\r\n1. Create and name a new schema\r\n2. Set the read/write access for the schema\r\n3. Define one or more fields of data for the schema\r\n4. Create an entity based on the schema\r\n5. Assign values to the fields for the entity\r\n6. Associate the entity with a Revit element\r\n\"\"\"\r\n#import sys\r\nimport sys\r\nimport os\r\nimport uuid\r\nimport clr\r\nclr.AddReference('RevitAPI')\r\nclr.AddReference('RevitAPIUI')\r\nfrom Autodesk.Revit.DB import *\r\n\r\nclr.AddReference('RevitServices')\r\nimport RevitServices\r\nfrom RevitServices.Persistence import DocumentManager\r\nfrom RevitServices.Transactions import TransactionManager\r\n\r\n#import dynamo libaries for creating a point\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import Point\r\n\r\nimport clr\r\nclr.AddReference('System')\r\nfrom System import Guid, Int32\r\n\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\nuidoc=DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument\r\n\r\n\r\nelements = UnwrapElement(IN[0])\r\n\r\n#revit 2022\r\n#set SetUnitType was deprecated \r\ndef createSchemaAndStoreData_2022(doc, element): \r\n    \"\"\"\r\n    Create a schema and store data in a view element\r\n    \"\"\"\r\n    TransactionManager.Instance.EnsureInTransaction(doc)\r\n    #create a new revit guid\r\n    schemaGuid = Guid.NewGuid()\r\n    schemaBuilder = ExtensibleStorage.SchemaBuilder(schemaGuid)\r\n    #set read/write access\r\n    schemaBuilder.SetReadAccessLevel(ExtensibleStorage.AccessLevel.Public)\r\n    schemaBuilder.SetWriteAccessLevel(ExtensibleStorage.AccessLevel.Public)\r\n    #set the schema name\r\n    schemaBuilder.SetSchemaName(\"ElementLocation\")\r\n    #add a field to the schema\r\n    fieldBuilder = schemaBuilder.AddSimpleField(\"Element_Location\", XYZ)\r\n    #fieldBuilder = schemaBuilder.AddSimpleField(\"ElementLocation\", XYZ)\r\n    fieldBuilder.SetSpec(SpecTypeId.Length)\r\n    #set documentation\r\n    fieldBuilder.SetDocumentation(\"The coordinates of the element location\")\r\n\r\n    #create the schema\r\n    schema = schemaBuilder.Finish()\r\n    entity = ExtensibleStorage.Entity(schema)\r\n    #get the field from the schema\r\n    field = schema.GetField(\"Element_Location\")\r\n    #set the value of the field\r\n\r\n    #TransactionManager.Instance.EnsureInTransaction(doc)\r\n    #set the value of the field\r\n    entity.Set<XYZ>(field, element.GetBoxCenter(), UnitTypeId.Inch)\r\n    element.SetEntity(entity)\r\n    TransactionManager.Instance.TransactionTaskDone()\r\n    #get the data back from the wall\r\n    TransactionManager.Instance.EnsureInTransaction(doc)\r\n    retrievedEntity = element.GetEntity(schema)\r\n    retrievedEntity.Get<XYZ>(schema.GetField(\"Element_Location\"))\r\n    TransactionManager.Instance.TransactionTaskDone()\r\n    return retrievedEntity.Get<XYZ>(schema.GetField(\"Element_Location\"))\r\n\r\n#revit 2020\r\ndef createSchemaAndStoreData_2020(doc, element): \r\n    \"\"\"\r\n    Create a schema and store data in a view element\r\n    \"\"\"\r\n    TransactionManager.Instance.EnsureInTransaction(doc)\r\n    #Create GUID from a string\r\n\r\n    schemaGuid = Guid.NewGuid()\r\n    schemaBuilder = ExtensibleStorage.SchemaBuilder(schemaGuid)\r\n    #set read/write access\r\n    schemaBuilder.SetReadAccessLevel(ExtensibleStorage.AccessLevel.Public)\r\n    schemaBuilder.SetWriteAccessLevel(ExtensibleStorage.AccessLevel.Public)\r\n    #set the schema name\r\n    schemaBuilder.SetSchemaName(\"ElementLocation\")\r\n    #add a field to the schema\r\n    fieldBuilder = schemaBuilder.AddSimpleField(\"Element_Location\", XYZ)\r\n    #fieldBuilder = schemaBuilder.AddSimpleField(\"ElementLocation\", XYZ)\r\n    fieldBuilder.SetUnitType(UnitType.UT_Length)\r\n    #set documentation\r\n    fieldBuilder.SetDocumentation(\"The coordinates of the element location\")\r\n\r\n    #create the schema\r\n    schema = schemaBuilder.Finish()\r\n    entity = ExtensibleStorage.Entity(schema)\r\n    #get the field from the schema\r\n    field = schema.GetField(\"Element_Location\")\r\n    #set the value of the field\r\n\t\r\n    #TransactionManager.Instance.EnsureInTransaction(doc)\r\n    #set the value of the field\r\n    entity.Set(field, element.GetBoxCenter(), DisplayUnitType.DUT_DECIMAL_FEET)\r\n    element.SetEntity(entity)\r\n\r\n    TransactionManager.Instance.TransactionTaskDone()\r\n    return element.GetBoxCenter()\r\n\r\n#get schemas from the element\r\ndef getSchemasFromElement(element):\r\n    \"\"\"\r\n    Get the schemas from the element\r\n    \"\"\"\r\n    TransactionManager.Instance.EnsureInTransaction(doc)\r\n    #get the schemas from the element\r\n    schemas = element.GetEntitySchemaGuids()\r\n    #get the schema names from the schemas\r\n    schemaNames = [ExtensibleStorage.Schema.Lookup(schema).SchemaName for schema in schemas]\r\n\r\n    for index,i in enumerate(schemaNames):\r\n        if i == \"ElementLocation\":\r\n            schemaGuid = schemas[index]\r\n            schema = ExtensibleStorage.Schema.Lookup(schemaGuid)\r\n            TransactionManager.Instance.TransactionTaskDone()\r\n            return schema\r\n            break\r\n        else:\r\n       \t\treturn None\r\n    \r\n\r\n\r\n#get value of element location from the schema\r\ndef getValueFromSchema(element, schema):\r\n    \"\"\"\r\n    Get the value from the schema\r\n    \"\"\"\r\n    if schema is not None:\r\n        TransactionManager.Instance.EnsureInTransaction(doc)\r\n\t    #get the value from the schema\r\n        fieldType = schema.GetField(\"Element_Location\").GetType()\r\n        t = schema.GetField(\"Element_Location\")\r\n        value = element.GetEntity(schema).Get[t.ValueType](schema.GetField(\"Element_Location\"),DisplayUnitType.DUT_DECIMAL_FEET)\r\n\t    \r\n\t    #get the value from the schema\r\n        TransactionManager.Instance.TransactionTaskDone()\r\n        return value\r\n    else:\r\n        return \"There is no schema to get the value from\"\r\n    \r\n\r\n\r\n\r\ndef deleteSchemaFromElement(element, schema):\r\n    \"\"\"\r\n    Delete the schema from the element\r\n    \"\"\"\r\n    if schema is not None:\r\n        TransactionManager.Instance.EnsureInTransaction(doc)\r\n        #delete the schema from the element\r\n        element.DeleteEntity(schema)\r\n        TransactionManager.Instance.TransactionTaskDone()\r\n        return \"Schema deleted\"\r\n    else:\r\n        return \"There is no schema to delete\"\r\n\r\n\r\nOUT = []\r\nfor element in elements:\r\n\tview_point = createSchemaAndStoreData_2020(doc, element)\r\n\tOUT.append(Point.ByCoordinates(view_point.X,view_point.Y,view_point.Z))\r\n\r\n",
+      "VariableInputPorts": true,
+      "Id": "be19ca3a80e2464f870e62439929acbf",
+      "Inputs": [
+        {
+          "Id": "057a7f19d42e4f539e98f1c20b3bb04c",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "4d02da7cf89043b5bfb0b9c803b72f8b",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "\"\"\"\r\n1. Create and name a new schema\r\n2. Set the read/write access for the schema\r\n3. Define one or more fields of data for the schema\r\n4. Create an entity based on the schema\r\n5. Assign values to the fields for the entity\r\n6. Associate the entity with a Revit element\r\n\"\"\"\r\n#import sys\r\nimport sys\r\nimport os\r\nimport uuid\r\nimport clr\r\nclr.AddReference('RevitAPI')\r\nclr.AddReference('RevitAPIUI')\r\nfrom Autodesk.Revit.DB import *\r\n\r\nclr.AddReference(\"RevitNodes\")\r\nimport Revit\r\nfrom Revit.Elements import *\r\nclr.ImportExtensions(Revit.Elements)\r\n\r\n\r\nclr.AddReference('RevitServices')\r\nimport RevitServices\r\nfrom RevitServices.Persistence import DocumentManager\r\nfrom RevitServices.Transactions import TransactionManager\r\n\r\n#import dynamo libaries for creating a point\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import Point, Vector\r\n\r\nimport clr\r\nclr.AddReference('System')\r\nfrom System import Guid, Int32\r\n\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\nuidoc=DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument\r\n\r\n\r\nelements = UnwrapElement(IN[0])\r\n\r\n#revit 2022\r\n#set SetUnitType was deprecated \r\ndef createSchemaAndStoreData_2022(doc, element): \r\n    \"\"\"\r\n    Create a schema and store data in a view element\r\n    \"\"\"\r\n    TransactionManager.Instance.EnsureInTransaction(doc)\r\n    #create a new revit guid\r\n    schemaGuid = Guid.NewGuid()\r\n    schemaBuilder = ExtensibleStorage.SchemaBuilder(schemaGuid)\r\n    #set read/write access\r\n    schemaBuilder.SetReadAccessLevel(ExtensibleStorage.AccessLevel.Public)\r\n    schemaBuilder.SetWriteAccessLevel(ExtensibleStorage.AccessLevel.Public)\r\n    #set the schema name\r\n    schemaBuilder.SetSchemaName(\"ElementLocation\")\r\n    #add a field to the schema\r\n    fieldBuilder = schemaBuilder.AddSimpleField(\"Element_Location\", XYZ)\r\n    #fieldBuilder = schemaBuilder.AddSimpleField(\"ElementLocation\", XYZ)\r\n    fieldBuilder.SetSpec(SpecTypeId.Length)\r\n    #set documentation\r\n    fieldBuilder.SetDocumentation(\"The coordinates of the element location\")\r\n\r\n    #create the schema\r\n    schema = schemaBuilder.Finish()\r\n    entity = ExtensibleStorage.Entity(schema)\r\n    #get the field from the schema\r\n    field = schema.GetField(\"Element_Location\")\r\n    #set the value of the field\r\n\r\n    #TransactionManager.Instance.EnsureInTransaction(doc)\r\n    #set the value of the field\r\n    entity.Set<XYZ>(field, element.GetBoxCenter(), UnitTypeId.Inch)\r\n    element.SetEntity(entity)\r\n    TransactionManager.Instance.TransactionTaskDone()\r\n    #get the data back from the wall\r\n    TransactionManager.Instance.EnsureInTransaction(doc)\r\n    retrievedEntity = element.GetEntity(schema)\r\n    retrievedEntity.Get<XYZ>(schema.GetField(\"Element_Location\"))\r\n    TransactionManager.Instance.TransactionTaskDone()\r\n    return retrievedEntity.Get<XYZ>(schema.GetField(\"Element_Location\"))\r\n\r\n#revit 2020\r\ndef createSchemaAndStoreData_2020(doc, element): \r\n    \"\"\"\r\n    Create a schema and store data in a view element\r\n    \"\"\"\r\n    TransactionManager.Instance.EnsureInTransaction(doc)\r\n    #Create GUID from a string\r\n\r\n    schemaGuid = Guid.NewGuid()\r\n    schemaBuilder = ExtensibleStorage.SchemaBuilder(schemaGuid)\r\n    #set read/write access\r\n    schemaBuilder.SetReadAccessLevel(ExtensibleStorage.AccessLevel.Public)\r\n    schemaBuilder.SetWriteAccessLevel(ExtensibleStorage.AccessLevel.Public)\r\n    #set the schema name\r\n    schemaBuilder.SetSchemaName(\"ElementLocation\")\r\n    #add a field to the schema\r\n    fieldBuilder = schemaBuilder.AddSimpleField(\"Element_Location\", XYZ)\r\n    #fieldBuilder = schemaBuilder.AddSimpleField(\"ElementLocation\", XYZ)\r\n    fieldBuilder.SetUnitType(UnitType.UT_Length)\r\n    #set documentation\r\n    fieldBuilder.SetDocumentation(\"The coordinates of the element location\")\r\n\r\n    #create the schema\r\n    schema = schemaBuilder.Finish()\r\n    entity = ExtensibleStorage.Entity(schema)\r\n    #get the field from the schema\r\n    field = schema.GetField(\"Element_Location\")\r\n    #set the value of the field\r\n\t\r\n    #TransactionManager.Instance.EnsureInTransaction(doc)\r\n    #set the value of the field\r\n    entity.Set(field, element.GetBoxCenter(), DisplayUnitType.DUT_DECIMAL_FEET)\r\n    element.SetEntity(entity)\r\n\r\n    TransactionManager.Instance.TransactionTaskDone()\r\n    return element.GetBoxCenter()\r\n\r\n#get schemas from the element\r\ndef getSchemasFromElement(element):\r\n    \"\"\"\r\n    Get the schemas from the element\r\n    \"\"\"\r\n    TransactionManager.Instance.EnsureInTransaction(doc)\r\n    #get the schemas from the element\r\n    schemas = element.GetEntitySchemaGuids()\r\n    #get the schema names from the schemas\r\n    schemaNames = [ExtensibleStorage.Schema.Lookup(schema).SchemaName for schema in schemas]\r\n\r\n    for index,i in enumerate(schemaNames):\r\n        if i == \"ElementLocation\":\r\n            schemaGuid = schemas[index]\r\n            schema = ExtensibleStorage.Schema.Lookup(schemaGuid)\r\n            TransactionManager.Instance.TransactionTaskDone()\r\n            return schema\r\n            break\r\n        else:\r\n       \t\treturn None\r\n    \r\n\r\n\r\n#get value of element location from the schema\r\ndef getValueFromSchema(element, schema):\r\n    \"\"\"\r\n    Get the value from the schema\r\n    \"\"\"\r\n    if schema is not None:\r\n        TransactionManager.Instance.EnsureInTransaction(doc)\r\n\t    #get the value from the schema\r\n        fieldType = schema.GetField(\"Element_Location\").GetType()\r\n        t = schema.GetField(\"Element_Location\")\r\n        value = element.GetEntity(schema).Get[t.ValueType](schema.GetField(\"Element_Location\"),DisplayUnitType.DUT_DECIMAL_FEET)\r\n\t    \r\n\t    #get the value from the schema\r\n        TransactionManager.Instance.TransactionTaskDone()\r\n        return value\r\n    else:\r\n        return \"There is no schema to get the value from\"\r\n    \r\n\r\n\r\n\r\ndef deleteSchemaFromElement(element, schema):\r\n    \"\"\"\r\n    Delete the schema from the element\r\n    \"\"\"\r\n    if schema is not None:\r\n        TransactionManager.Instance.EnsureInTransaction(doc)\r\n        #delete the schema from the element\r\n        element.DeleteEntity(schema)\r\n        TransactionManager.Instance.TransactionTaskDone()\r\n        return \"Schema deleted\"\r\n    else:\r\n        return \"There is no schema to delete\"\r\nOUT = []\r\nfor element in elements:\r\n\tschema = getSchemasFromElement(element)\r\n\tend_XYZ = getValueFromSchema(element, schema)\r\n\tstart_XYZ = element.GetBoxCenter()\r\n\t\r\n\tend_point = Point.ByCoordinates(end_XYZ.X, end_XYZ.Y, end_XYZ.Z)\r\n\t\r\n\tsheet = doc.GetElement(element.SheetId)\r\n\tview = doc.GetElement(element.ViewId)\r\n\t\r\n\tviewport=[]\r\n\tdoc.Delete(element.Id)\r\n\tOUT.append(Viewport.Create(doc, sheet.Id,view.Id, end_XYZ))\r\n",
+      "VariableInputPorts": true,
+      "Id": "01f2eca72ece43f1b26661229ebb516f",
+      "Inputs": [
+        {
+          "Id": "e61e4b944fe04384833e838914c26db2",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "a6f51501634741e585ca44f6f864459a",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "DSRevitNodesUI.ElementsOfCategory, DSRevitNodesUI",
+      "NodeType": "ExtensionNode",
+      "Id": "e641327cf55f4111a9e1539e669f8425",
+      "Inputs": [
+        {
+          "Id": "adf9e081a1e04aab83c47639d41ce07f",
+          "Name": "Category",
+          "Description": "The Category",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "dfcf7ca179574f56aebbf9730178896d",
+          "Name": "Elements",
+          "Description": "An element type.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Get all elements of the specified category from the model."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Revit.Elements.Category.ByName@string",
+      "Id": "580f06c68be9438fb1a1e53893ddf875",
+      "Inputs": [
+        {
+          "Id": "4ba30120b2324cda8e8d194ecc314414",
+          "Name": "name",
+          "Description": "The built in category name.\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "23304a6092814823898e7603f495b582",
+          "Name": "Category",
+          "Description": "Category",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Gets a Revit category by the built-in category name.\n\nCategory.ByName (name: string): Category"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "\"Viewports\";",
+      "Id": "00f79beed4714f008ad6dd01fee38e44",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "95acf9576e954e9da86706c5192fcda9",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "23304a6092814823898e7603f495b582",
+      "End": "adf9e081a1e04aab83c47639d41ce07f",
+      "Id": "325ae7524ca04ec98514698d746ca0be"
+    },
+    {
+      "Start": "95acf9576e954e9da86706c5192fcda9",
+      "End": "4ba30120b2324cda8e8d194ecc314414",
+      "Id": "862d4abe3ed64a68aa2aefb679ffda8b"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.3.0.5885",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": 0.5348593140383191,
+      "EyeY": 29.504139522769457,
+      "EyeZ": 2.709440127817961,
+      "LookX": -0.10819925315575074,
+      "LookY": -29.504139522769457,
+      "LookZ": -3.4227279581707442,
+      "UpX": -0.029874803353418865,
+      "UpY": 0.32556815445715742,
+      "UpZ": -0.94504649246899675
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Add Data",
+        "Id": "be19ca3a80e2464f870e62439929acbf",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 151.94407228287957,
+        "Y": -71.535210788140972
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Update View",
+        "Id": "01f2eca72ece43f1b26661229ebb516f",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 160.72193727421887,
+        "Y": -297.95188692488665
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "All Elements of Category",
+        "Id": "e641327cf55f4111a9e1539e669f8425",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -200.75359289006428,
+        "Y": -216.99393842295754
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Category.ByName",
+        "Id": "580f06c68be9438fb1a1e53893ddf875",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -485.74060617697461,
+        "Y": -216.99393842295757
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "00f79beed4714f008ad6dd01fee38e44",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -699.764040250099,
+        "Y": -240.0
+      }
+    ],
+    "Annotations": [],
+    "X": 789.0929227716174,
+    "Y": 429.07199964965878,
+    "Zoom": 0.6633919560065249
+  }
+}
