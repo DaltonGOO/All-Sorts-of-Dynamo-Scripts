@@ -1,6 +1,9 @@
 """
-Dynamo Core Assemblies: https://www.nuget.org/packages/DynamoVisualProgramming.Core/2.13.1.3887
-Revit API: https://www.revitapidocs.com/2020/d4648875-d41a-783b-d5f4-638df39ee413.htm
+Dynamo Core Assemblies: 
+https://www.nuget.org/packages/DynamoVisualProgramming.Core/2.13.1.3887
+
+Revit API: 
+https://www.revitapidocs.com/2020/d4648875-d41a-783b-d5f4-638df39ee413.htm
 """
 
 import sys
