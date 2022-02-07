@@ -1,5 +1,10 @@
+"""
+Dynamo Core Assemblies: https://www.nuget.org/packages/DynamoVisualProgramming.Core/2.13.1.3887
+Revit API: https://www.revitapidocs.com/2020/d4648875-d41a-783b-d5f4-638df39ee413.htm
+"""
+
 import sys
-sys.path.append("C:\\Users\\dalto\\anaconda3\\envs\\Dynamo_210\\Lib")
+sys.path.append("C:\\Users\\dalto\\anaconda3\\envs\\Dynamo_2022\\Lib")
 sys.path.append("C:\\Users\\dalto\\OneDrive\\My Stuff\\GitHub\\All-Sorts-of-Dynamo-Scripts\\Python Module")
 
 import clr
