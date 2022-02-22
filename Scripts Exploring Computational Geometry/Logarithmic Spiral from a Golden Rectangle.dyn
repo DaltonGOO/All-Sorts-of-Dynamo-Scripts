@@ -1,0 +1,910 @@
+{
+  "Uuid": "94eef2c3-b85f-4f71-b7b2-50a149c5e7c4",
+  "IsCustomNode": false,
+  "Description": "",
+  "Name": "Logarithmic Spiral from a Golden Rectangle",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "CoreNodeModels.WatchImageCore, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "071a7f07f85749208902ea2dece8f3e6",
+      "Inputs": [
+        {
+          "Id": "ff5e3df5685647189d3b6ad19f038428",
+          "Name": "image",
+          "Description": "Image for visualization",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "666784c741eb431c8cff207a3a5a7843",
+          "Name": "image",
+          "Description": "Image for visualization",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Previews an image"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DSCore.IO.Image.ReadFromFile@var",
+      "Id": "70d72b9c82c9465c99655afdff73e1a6",
+      "Inputs": [
+        {
+          "Id": "f0d4f052a6c94c4ea53b00261f7a25b5",
+          "Name": "file",
+          "Description": "File object to load image from\n\nvar",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "2496875805ac44e18a4fd6ded15c60a9",
+          "Name": "image",
+          "Description": "Image object from file",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Loads the file as a bitmap.\n\nImage.ReadFromFile (file: var): var"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.Filename, CoreNodeModels",
+      "HintPath": "C:\\Users\\dalto\\OneDrive\\My Stuff\\GitHub\\bim-coordinator-resources\\YouTube\\Dynamo - Logarithmic Spiral from a Golden Rectangle\\FibonacciSpiral.svg.png",
+      "InputValue": ".\\FibonacciSpiral.svg.png",
+      "NodeType": "ExtensionNode",
+      "Id": "a98191de0c6d4f2790dcd4ff95d40bd5",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "35566080d38e451f881bc7c9d0d485ba",
+          "Name": "",
+          "Description": "File Path",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows you to select a file on the system to get its file path."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.FileObject, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "72409a48b3dc415cbc7d6aa671e4f892",
+      "Inputs": [
+        {
+          "Id": "99c9941157a645be96d6d9f46ce59ece",
+          "Name": "path",
+          "Description": "Path to the file.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "3a7ea267f7704f698f3d8d8f85a838ab",
+          "Name": "file",
+          "Description": "File object",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Creates a file object from a path."
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Load the Python Standard and DesignScript Libraries\r\nimport sys\r\nimport clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n\r\n\r\nnum_of_terms = int(IN[0]+1)\r\n\r\ndef fibonacci(n):\r\n    a, b = 0, 1\r\n    for i in range(n):\r\n        a, b = b, a + b\r\n    return a\r\n\r\ndef fibonacci_nums(num_of_terms):\r\n    fib_list = []\r\n    for i in range(num_of_terms):\r\n        fib_list.append(fibonacci(i))\r\n    return fib_list\r\n\r\n\r\nOUT = fibonacci_nums(num_of_terms)",
+      "Engine": "CPython3",
+      "VariableInputPorts": true,
+      "Id": "0b0a6ebfc5134d678044f2f02a09fe1e",
+      "Inputs": [
+        {
+          "Id": "077ea5cfd38a49faa47ab290010ba0d7",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "6af99278dee243bb9638eb9043e10cc1",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded Python script."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.DoubleSlider, CoreNodeModels",
+      "NodeType": "NumberInputNode",
+      "NumberType": "Double",
+      "MaximumValue": 20.0,
+      "MinimumValue": 3.0,
+      "StepValue": 1.0,
+      "InputValue": 9.0,
+      "Id": "be715eaa5edc4039bfd096251863f9db",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "997c1c4dfaa541749f6a0823ed2bbeb5",
+          "Name": "",
+          "Description": "Double",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A slider that produces numeric values."
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Load the Python Standard and DesignScript Libraries\r\nimport sys\r\nimport clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n\r\nn = IN[0]\r\nn = n[2:]\r\n\r\nlast_num = n[:][-1]\r\n\r\nr = [\"x+ y-\", \"x- y-\", \"x- y+\", \"x+ y+\"]\r\n\r\npoints = [Point.ByCoordinates(0, 0)]\r\nlines = []\r\n\r\nit = iter(r)\r\nmove_direction = next(it)\r\nwhile n:\r\n    \r\n    if move_direction == r[-1]:\r\n        it = iter(r)\r\n    move_direction = next(it)\r\n\r\n    if last_num == n[-1]:\r\n        points.append(Point.ByCoordinates(points[-1].X + n[-2], points[-1].Y + n[-2]))\r\n        lines.append(Line.ByStartPointDirectionLength(points[-1], Vector.ByCoordinates(0,-1,0), n[-2]))\r\n        n = n[:-2]\r\n        it = iter(r)\r\n\r\n\r\n    elif move_direction == \"x+ y-\":\r\n        points.append(Point.ByCoordinates(points[-1].X + n[-1], points[-1].Y - n[-1]))\r\n        lines.append(Line.ByStartPointDirectionLength(points[-1], Vector.ByCoordinates(-1,0,0), n[-1]))\r\n        n.pop(-1)\r\n    elif move_direction == \"x- y-\":\r\n        points.append(Point.ByCoordinates(points[-1].X - n[-1], points[-1].Y - n[-1]))\r\n        lines.append(Line.ByStartPointDirectionLength(points[-1], Vector.ByCoordinates(0,1,0), n[-1]))\r\n        n.pop(-1)\r\n    elif move_direction == \"x- y+\":\r\n        points.append(Point.ByCoordinates(points[-1].X - n[-1], points[-1].Y + n[-1]))\r\n        lines.append(Line.ByStartPointDirectionLength(points[-1], Vector.ByCoordinates(1,0,0), n[-1]))\r\n        n.pop(-1)\r\n    elif move_direction == \"x+ y+\":\r\n        points.append(Point.ByCoordinates(points[-1].X + n[-1], points[-1].Y + n[-1]))\r\n        lines.append(Line.ByStartPointDirectionLength(points[-1], Vector.ByCoordinates(0,-1,0), n[-1]))\r\n        n.pop(-1)\r\n    \r\n    \r\n    \r\nOUT = points, lines",
+      "Engine": "CPython3",
+      "VariableInputPorts": true,
+      "Id": "2c776dbd316e460cb4f448ffe4ccecb7",
+      "Inputs": [
+        {
+          "Id": "b655ee1d1ccf4c088f75cfeeb3451197",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "d3332f52b2ef43d5acf2a181b922c4cc",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded Python script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.NurbsCurve.ByPoints@Autodesk.DesignScript.Geometry.Point[]",
+      "Id": "7b3145fe4f49443a9b4f2663cd94b4b8",
+      "Inputs": [
+        {
+          "Id": "4e6decec8aa647c69965dc98de0a63bf",
+          "Name": "points",
+          "Description": "Points for nurbs curve\n\nPoint[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "deab97d3428e4355b0bbce6bead9bbb2",
+          "Name": "NurbsCurve",
+          "Description": "Nurbscurve created from points",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create a BSplineCurve by interpolating between points.\n\nNurbsCurve.ByPoints (points: Point[]): NurbsCurve"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "x[0];",
+      "Id": "62769f8bc6a444008f194bce29d82fdc",
+      "Inputs": [
+        {
+          "Id": "a64997b07f794a25949bb9baaee936fd",
+          "Name": "x",
+          "Description": "x",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "2b99bfdbe6c347daa3fe9f7ff30b0069",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.BoundingBox.ByGeometry@Autodesk.DesignScript.Geometry.Geometry[]",
+      "Id": "0067a76ebf4b403587bd835668bb29cf",
+      "Inputs": [
+        {
+          "Id": "935da6ffc996445fa40610f1e6dd918b",
+          "Name": "geom",
+          "Description": "Geometry[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "211c5a1a6a434423a1603f72fdfc5ef6",
+          "Name": "BoundingBox",
+          "Description": "BoundingBox",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create an axis-aligned BoundingBox around input Geometry.\n\nBoundingBox.ByGeometry (geom: Geometry[]): BoundingBox"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.BoundingBox.MaxPoint",
+      "Id": "c12a153e59944c729c43192ae9a3ac5c",
+      "Inputs": [
+        {
+          "Id": "c1f2c136c6c84c41894460b38ebe4a5c",
+          "Name": "boundingBox",
+          "Description": "Autodesk.DesignScript.Geometry.BoundingBox",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "4ff0168fce604461b1fc4ce7dba4232c",
+          "Name": "Point",
+          "Description": "Point",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "The maximum point\n\nBoundingBox.MaxPoint: Point"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.Point.ByCoordinates@double,double,double",
+      "Id": "77586ad700d94fb6bedc5d6ad9bc0337",
+      "Inputs": [
+        {
+          "Id": "38876d3c16a9490f8445a3354d3ccad9",
+          "Name": "x",
+          "Description": "X coordinate\n\ndouble\nDefault value : 0",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "4c8b7dde881248a68ad24d91a62c3e63",
+          "Name": "y",
+          "Description": "Y coordinate\n\ndouble\nDefault value : 0",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "4d437a0bab5b42eaa89dbd4721477718",
+          "Name": "z",
+          "Description": "Z coordinate\n\ndouble\nDefault value : 0",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "9a548fc5a7874e71a8e4d7abddeaa3ef",
+          "Name": "Point",
+          "Description": "Point created by coordinates",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Form a Point given 3 cartesian coordinates\n\nPoint.ByCoordinates (x: double = 0, y: double = 0, z: double = 0): Point"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.Point.X",
+      "Id": "23844454400e4eaf862d6bf320f0e152",
+      "Inputs": [
+        {
+          "Id": "8fb39ba9440a489bae2c3c252cc2d501",
+          "Name": "point",
+          "Description": "Autodesk.DesignScript.Geometry.Point",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "76680078677b458997a783caee35e510",
+          "Name": "double",
+          "Description": "double",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Get the X component of a Point\n\nPoint.X: double"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.Point.Y",
+      "Id": "f511531b7bcf48359a606b12d71e76b9",
+      "Inputs": [
+        {
+          "Id": "a5ed10c26bb640229a4d930168093921",
+          "Name": "point",
+          "Description": "Autodesk.DesignScript.Geometry.Point",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "bc1bb538e03b48e88d80a7c0e5dd7926",
+          "Name": "double",
+          "Description": "double",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Get the Y component of a Point\n\nPoint.Y: double"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.Point.ByCoordinates@double,double,double",
+      "Id": "939d20513f4d480887e0a7672d16272c",
+      "Inputs": [
+        {
+          "Id": "6ec41efc398047d3a2332a714ced49c5",
+          "Name": "x",
+          "Description": "X coordinate\n\ndouble\nDefault value : 0",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "2f3d5faf07f343f8973806a666650fae",
+          "Name": "y",
+          "Description": "Y coordinate\n\ndouble\nDefault value : 0",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "8a23383d48464300aaa10f252af78662",
+          "Name": "z",
+          "Description": "Z coordinate\n\ndouble\nDefault value : 0",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "a60c3663284343eaaef669890903d5e9",
+          "Name": "Point",
+          "Description": "Point created by coordinates",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Form a Point given 3 cartesian coordinates\n\nPoint.ByCoordinates (x: double = 0, y: double = 0, z: double = 0): Point"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.BoundingBox.MinPoint",
+      "Id": "6e225efdbe78499c834d0be463e3675d",
+      "Inputs": [
+        {
+          "Id": "d53b580143fb4107a4cd9bf635b31d5b",
+          "Name": "boundingBox",
+          "Description": "Autodesk.DesignScript.Geometry.BoundingBox",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "56037a0b8eb54942b2f78ae424d6803d",
+          "Name": "Point",
+          "Description": "Point",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "The minimum point\n\nBoundingBox.MinPoint: Point"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.Rectangle.ByCornerPoints@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point",
+      "Id": "314a021dd7de4118a3b0cd27e3f7eab3",
+      "Inputs": [
+        {
+          "Id": "ad37d6a991e345bc93ff0f34f991293b",
+          "Name": "p1",
+          "Description": "1st corner point of rectangle\n\nPoint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "c393e1ec9c8a401ca4e912a6c2964e0b",
+          "Name": "p2",
+          "Description": "2nd corner point of rectangle\n\nPoint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "2d1efb30edc84e54948eafd12c29356d",
+          "Name": "p3",
+          "Description": "3rd corner point of rectangle\n\nPoint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "542ac90765fd4cb3aecae1425154c90a",
+          "Name": "p4",
+          "Description": "4th corner point of rectangle\n\nPoint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "8cda52f59717460bbc16a5658de45e70",
+          "Name": "Rectangle",
+          "Description": "Rectangle created by corner points",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create a Rectangle by four corner Points.\n\nRectangle.ByCornerPoints (p1: Point, p2: Point, p3: Point, p4: Point): Rectangle"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "2496875805ac44e18a4fd6ded15c60a9",
+      "End": "ff5e3df5685647189d3b6ad19f038428",
+      "Id": "68561f236f8744b4a55f89f8e7a53712",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "35566080d38e451f881bc7c9d0d485ba",
+      "End": "99c9941157a645be96d6d9f46ce59ece",
+      "Id": "9bd7a50c9fed42019a76fd3ee46aa642",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "3a7ea267f7704f698f3d8d8f85a838ab",
+      "End": "f0d4f052a6c94c4ea53b00261f7a25b5",
+      "Id": "e0e89452ee5a4704ad9def694186746c",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "6af99278dee243bb9638eb9043e10cc1",
+      "End": "b655ee1d1ccf4c088f75cfeeb3451197",
+      "Id": "308e497036034b118f7aa523553624a7",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "997c1c4dfaa541749f6a0823ed2bbeb5",
+      "End": "077ea5cfd38a49faa47ab290010ba0d7",
+      "Id": "2f34a6daada14169a58f717ac53a10d7",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "d3332f52b2ef43d5acf2a181b922c4cc",
+      "End": "a64997b07f794a25949bb9baaee936fd",
+      "Id": "f50c660acde84adc94e33c3a1e4d3ac8",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "2b99bfdbe6c347daa3fe9f7ff30b0069",
+      "End": "935da6ffc996445fa40610f1e6dd918b",
+      "Id": "de1f9d4bc54043398f2264adc9c03688",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "2b99bfdbe6c347daa3fe9f7ff30b0069",
+      "End": "4e6decec8aa647c69965dc98de0a63bf",
+      "Id": "436259c4b47448669afeb52db52e1a1c",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "211c5a1a6a434423a1603f72fdfc5ef6",
+      "End": "c1f2c136c6c84c41894460b38ebe4a5c",
+      "Id": "363fc34e579d4177b9028b3ebf65e95b",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "211c5a1a6a434423a1603f72fdfc5ef6",
+      "End": "d53b580143fb4107a4cd9bf635b31d5b",
+      "Id": "d90b2409d7f24bafad3091a705e791f9",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "4ff0168fce604461b1fc4ce7dba4232c",
+      "End": "8fb39ba9440a489bae2c3c252cc2d501",
+      "Id": "390842b15f6e4a4496897d44e6f01648",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "4ff0168fce604461b1fc4ce7dba4232c",
+      "End": "a5ed10c26bb640229a4d930168093921",
+      "Id": "357623b4215144d7bd3a9419382cea1d",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "4ff0168fce604461b1fc4ce7dba4232c",
+      "End": "2d1efb30edc84e54948eafd12c29356d",
+      "Id": "ad7e64e8e3b04fbfaf1c52cc5ecd8e5c",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "9a548fc5a7874e71a8e4d7abddeaa3ef",
+      "End": "c393e1ec9c8a401ca4e912a6c2964e0b",
+      "Id": "2b5d0e3b9c32472081bed37fbf283c57",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "76680078677b458997a783caee35e510",
+      "End": "38876d3c16a9490f8445a3354d3ccad9",
+      "Id": "15d9dba5c9594f46b58e60614c08e22a",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "bc1bb538e03b48e88d80a7c0e5dd7926",
+      "End": "2f3d5faf07f343f8973806a666650fae",
+      "Id": "9bfed31db5d541cc934a4d58b7a23653",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "a60c3663284343eaaef669890903d5e9",
+      "End": "542ac90765fd4cb3aecae1425154c90a",
+      "Id": "08cb06ffc16847a7999b7230c76183a1",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "56037a0b8eb54942b2f78ae424d6803d",
+      "End": "ad37d6a991e345bc93ff0f34f991293b",
+      "Id": "91bfa2aa9e3f4cd098261a55a9562833",
+      "IsHidden": "False"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [
+    {
+      "Name": "FibonacciSpiral.svg.png",
+      "ReferenceType": "External",
+      "Nodes": [
+        "a98191de0c6d4f2790dcd4ff95d40bd5"
+      ]
+    }
+  ],
+  "Thumbnail": "",
+  "GraphDocumentationURL": null,
+  "ExtensionWorkspaceData": [
+    {
+      "ExtensionGuid": "28992e1d-abb9-417f-8b1b-05e053bee670",
+      "Name": "Properties",
+      "Version": "2.13",
+      "Data": {}
+    }
+  ],
+  "Author": "",
+  "Linting": {
+    "activeLinter": "None",
+    "activeLinterId": "7b75fb44-43fd-4631-a878-29f4d5d8399a",
+    "warningCount": 0,
+    "errorCount": 0
+  },
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.13.0.3485",
+      "RunType": "Automatic",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": 26.534902572631836,
+      "EyeY": 33.1671142578125,
+      "EyeZ": 1.3484351634979248,
+      "LookX": -0.17516708374023438,
+      "LookY": -22.255992889404297,
+      "LookZ": -3.5689332485198975,
+      "UpX": -0.04562324658036232,
+      "UpY": 0.36649981141090393,
+      "UpZ": -0.92929893732070923
+    },
+    "ConnectorPins": [],
+    "NodeViews": [
+      {
+        "Name": "Watch Image",
+        "ShowGeometry": true,
+        "Id": "071a7f07f85749208902ea2dece8f3e6",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 518.03853135262341,
+        "Y": -1097.0940814172707
+      },
+      {
+        "Name": "Image.ReadFromFile",
+        "ShowGeometry": true,
+        "Id": "70d72b9c82c9465c99655afdff73e1a6",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 254.63726463180853,
+        "Y": -1102.7248671041061
+      },
+      {
+        "Name": "File Path",
+        "ShowGeometry": true,
+        "Id": "a98191de0c6d4f2790dcd4ff95d40bd5",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -214.94229868299033,
+        "Y": -1123.247769525768
+      },
+      {
+        "Name": "File From Path",
+        "ShowGeometry": true,
+        "Id": "72409a48b3dc415cbc7d6aa671e4f892",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 44.430438476071458,
+        "Y": -1112.5300604197132
+      },
+      {
+        "Name": "Python Script",
+        "ShowGeometry": true,
+        "Id": "0b0a6ebfc5134d678044f2f02a09fe1e",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 57.164003208251415,
+        "Y": 372.46701210591829
+      },
+      {
+        "Name": "Number Slider",
+        "ShowGeometry": true,
+        "Id": "be715eaa5edc4039bfd096251863f9db",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -408.05952897960145,
+        "Y": 378.66957557025984
+      },
+      {
+        "Name": "Python Script",
+        "ShowGeometry": true,
+        "Id": "2c776dbd316e460cb4f448ffe4ccecb7",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 323.28769555306189,
+        "Y": 315.193758953219
+      },
+      {
+        "Name": "NurbsCurve.ByPoints",
+        "ShowGeometry": true,
+        "Id": "7b3145fe4f49443a9b4f2663cd94b4b8",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1038.9882903756968,
+        "Y": 353.19843073003665
+      },
+      {
+        "Name": "Code Block",
+        "ShowGeometry": true,
+        "Id": "62769f8bc6a444008f194bce29d82fdc",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 643.59524402256454,
+        "Y": 301.321193868182
+      },
+      {
+        "Name": "BoundingBox.ByGeometry",
+        "ShowGeometry": true,
+        "Id": "0067a76ebf4b403587bd835668bb29cf",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1154.6487879538729,
+        "Y": 28.808654610602531
+      },
+      {
+        "Name": "BoundingBox.MaxPoint",
+        "ShowGeometry": true,
+        "Id": "c12a153e59944c729c43192ae9a3ac5c",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1620.2023039892415,
+        "Y": 231.20381926008679
+      },
+      {
+        "Name": "Point.ByCoordinates",
+        "ShowGeometry": true,
+        "Id": "77586ad700d94fb6bedc5d6ad9bc0337",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2533.2531737618174,
+        "Y": 342.58890562352803
+      },
+      {
+        "Name": "Point.X",
+        "ShowGeometry": true,
+        "Id": "23844454400e4eaf862d6bf320f0e152",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2195.9506074382816,
+        "Y": 494.13063831960926
+      },
+      {
+        "Name": "Point.Y",
+        "ShowGeometry": true,
+        "Id": "f511531b7bcf48359a606b12d71e76b9",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2128.490094173575,
+        "Y": 215.48938787842758
+      },
+      {
+        "Name": "Point.ByCoordinates",
+        "ShowGeometry": true,
+        "Id": "939d20513f4d480887e0a7672d16272c",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2510.7684693466886,
+        "Y": 69.282326211758
+      },
+      {
+        "Name": "BoundingBox.MinPoint",
+        "ShowGeometry": true,
+        "Id": "6e225efdbe78499c834d0be463e3675d",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1701.8700598904422,
+        "Y": -162.41342168451092
+      },
+      {
+        "Name": "Rectangle.ByCornerPoints",
+        "ShowGeometry": true,
+        "Id": "314a021dd7de4118a3b0cd27e3f7eab3",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 3006.1104703575779,
+        "Y": 99.585367869646234
+      }
+    ],
+    "Annotations": [],
+    "X": 278.48192464500926,
+    "Y": -238.84150123871279,
+    "Zoom": 0.59406325563303575
+  }
+}
