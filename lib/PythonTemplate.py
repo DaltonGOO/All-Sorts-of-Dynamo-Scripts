@@ -6,6 +6,14 @@ Revit API:
 https://www.revitapidocs.com/2020/d4648875-d41a-783b-d5f4-638df39ee413.htm
 """
 
+"""
+C:\Program Files\Autodesk\Revit 2022\AddIns\DynamoForRevit
+
+C:\Program Files\Autodesk\Revit 2022\AddIns\DynamoForRevit\Revit
+
+"""
+
+
 import sys
 sys.path.append("C:\\Users\\dalto\\anaconda3\\envs\\Dynamo_2022\\Lib")
 sys.path.append("C:\\Users\\dalto\\OneDrive\\My Stuff\\GitHub\\All-Sorts-of-Dynamo-Scripts\\Python Module")
