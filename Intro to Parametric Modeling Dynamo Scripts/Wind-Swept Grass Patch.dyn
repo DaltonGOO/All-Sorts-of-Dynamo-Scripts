@@ -390,8 +390,8 @@
         },
         {
           "Id": "6dba66fa1ab7477bb611abb6ca11453f",
-          "Name": "amt",
-          "Description": "Layers of nesting to remove.\n\nint\nDefault value : -1",
+          "Name": "amount",
+          "Description": "Layers of list nesting to remove (-1 will remove all list nestings)\n\nint\nDefault value : -1",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -401,8 +401,8 @@
       "Outputs": [
         {
           "Id": "e0314b0359f74e0aa7ea3f7f2f2e9e7e",
-          "Name": "var[]..[]",
-          "Description": "var[]..[]",
+          "Name": "list",
+          "Description": "Flattened list by amount",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -410,7 +410,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Flattens a nested list of lists by a certain amount.\n\nList.Flatten (list: var[]..[], amt: int = -1): var[]..[]"
+      "Description": "Flattens a nested list of lists by a certain amount.\n\nList.Flatten (list: var[]..[], amount: int = -1): var[]..[]"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -768,7 +768,7 @@
         {
           "Id": "c038326cbe274e7b8c8bf1a4e6666e65",
           "Name": "Vector",
-          "Description": "Vector",
+          "Description": "Vector created by coordinates",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -815,8 +815,8 @@
         },
         {
           "Id": "bfca1e55c84144199b009c56711efc02",
-          "Name": "amt",
-          "Description": "Layers of nesting to remove.\n\nint\nDefault value : -1",
+          "Name": "amount",
+          "Description": "Layers of list nesting to remove (-1 will remove all list nestings)\n\nint\nDefault value : -1",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -826,8 +826,8 @@
       "Outputs": [
         {
           "Id": "28eee0d42fa14ecea50fef0e16c53b13",
-          "Name": "var[]..[]",
-          "Description": "var[]..[]",
+          "Name": "list",
+          "Description": "Flattened list by amount",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -835,7 +835,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Flattens a nested list of lists by a certain amount.\n\nList.Flatten (list: var[]..[], amt: int = -1): var[]..[]"
+      "Description": "Flattens a nested list of lists by a certain amount.\n\nList.Flatten (list: var[]..[], amount: int = -1): var[]..[]"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -846,7 +846,7 @@
         {
           "Id": "e84b371afd424ec9952f3eb3bd77ea10",
           "Name": "x",
-          "Description": "double\nDefault value : 0",
+          "Description": "X coordinate\n\ndouble\nDefault value : 0",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -855,7 +855,7 @@
         {
           "Id": "ad207c3587c14444879c8cc5eadbca79",
           "Name": "y",
-          "Description": "double\nDefault value : 0",
+          "Description": "Y coordinate\n\ndouble\nDefault value : 0",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -864,7 +864,7 @@
         {
           "Id": "cb8347db7641421c9e718939da8d881b",
           "Name": "z",
-          "Description": "double\nDefault value : 0",
+          "Description": "Z coordinate\n\ndouble\nDefault value : 0",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -875,7 +875,7 @@
         {
           "Id": "b5616f405b82484797779985a98c4b9a",
           "Name": "Point",
-          "Description": "Point",
+          "Description": "Point created by coordinates",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -903,7 +903,7 @@
         {
           "Id": "dc3eb6be37f944e5b917c58a0281c2dd",
           "Name": "point",
-          "Description": "Point",
+          "Description": "Point at which to evaluate surface normal\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": true,
@@ -914,7 +914,7 @@
         {
           "Id": "d8da0044776d438996d760de5fb313c2",
           "Name": "Vector",
-          "Description": "Vector",
+          "Description": "Normal at point",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -1023,7 +1023,7 @@
         {
           "Id": "23572a834e2b45f895589f61594467f6",
           "Name": "x",
-          "Description": "double\nDefault value : 0",
+          "Description": "X coordinate\n\ndouble\nDefault value : 0",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -1032,7 +1032,7 @@
         {
           "Id": "c4dafb929a6b499390e93bcf21be099e",
           "Name": "y",
-          "Description": "double\nDefault value : 0",
+          "Description": "Y coordinate\n\ndouble\nDefault value : 0",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -1041,7 +1041,7 @@
         {
           "Id": "5a101eacd1f34eadbef5641564b80c29",
           "Name": "z",
-          "Description": "double\nDefault value : 0",
+          "Description": "Z coordinate\n\ndouble\nDefault value : 0",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -1052,7 +1052,7 @@
         {
           "Id": "2a472a151cad405895a70f3814685e87",
           "Name": "Point",
-          "Description": "Point",
+          "Description": "Point created by coordinates",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -1131,7 +1131,7 @@
         {
           "Id": "aec9f4c5f5ce43789eb84c5a966814f8",
           "Name": "x",
-          "Description": "double\nDefault value : 0",
+          "Description": "X coordinate\n\ndouble\nDefault value : 0",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -1140,7 +1140,7 @@
         {
           "Id": "a77e36218a004e59837af92a0d3fa49d",
           "Name": "y",
-          "Description": "double\nDefault value : 0",
+          "Description": "Y coordinate\n\ndouble\nDefault value : 0",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -1149,7 +1149,7 @@
         {
           "Id": "6c0172bf4715454ca185360232f7e35a",
           "Name": "z",
-          "Description": "double\nDefault value : 0",
+          "Description": "Z coordinate\n\ndouble\nDefault value : 0",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -1160,7 +1160,7 @@
         {
           "Id": "217481c4ba9b490ebad33780d1cbaa91",
           "Name": "Point",
-          "Description": "Point",
+          "Description": "Point created by coordinates",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -1286,8 +1286,8 @@
         },
         {
           "Id": "49d26a2f31454cc69f118ef786544458",
-          "Name": "amt",
-          "Description": "Layers of nesting to remove.\n\nint\nDefault value : -1",
+          "Name": "amount",
+          "Description": "Layers of list nesting to remove (-1 will remove all list nestings)\n\nint\nDefault value : -1",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -1297,8 +1297,8 @@
       "Outputs": [
         {
           "Id": "2674e0b2723c4de3bfa9931c5eb82643",
-          "Name": "var[]..[]",
-          "Description": "var[]..[]",
+          "Name": "list",
+          "Description": "Flattened list by amount",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -1306,7 +1306,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Flattens a nested list of lists by a certain amount.\n\nList.Flatten (list: var[]..[], amt: int = -1): var[]..[]"
+      "Description": "Flattens a nested list of lists by a certain amount.\n\nList.Flatten (list: var[]..[], amount: int = -1): var[]..[]"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -1383,7 +1383,7 @@
         }
       ],
       "Replication": "Disabled",
-      "Description": "Visualize the output of node."
+      "Description": "Visualize the node's output"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -1462,8 +1462,8 @@
         },
         {
           "Id": "1d4324cec88247cbbe903a20c03583fe",
-          "Name": "amt",
-          "Description": "Layers of nesting to remove.\n\nint\nDefault value : -1",
+          "Name": "amount",
+          "Description": "Layers of list nesting to remove (-1 will remove all list nestings)\n\nint\nDefault value : -1",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -1473,8 +1473,8 @@
       "Outputs": [
         {
           "Id": "8de79abb8b744e7687b5efd0181d1854",
-          "Name": "var[]..[]",
-          "Description": "var[]..[]",
+          "Name": "list",
+          "Description": "Flattened list by amount",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -1482,7 +1482,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Flattens a nested list of lists by a certain amount.\n\nList.Flatten (list: var[]..[], amt: int = -1): var[]..[]"
+      "Description": "Flattens a nested list of lists by a certain amount.\n\nList.Flatten (list: var[]..[], amount: int = -1): var[]..[]"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -1501,8 +1501,8 @@
         },
         {
           "Id": "811a68d1b1bb4637b93b2d87eca83f13",
-          "Name": "amt",
-          "Description": "Layers of nesting to remove.\n\nint\nDefault value : -1",
+          "Name": "amount",
+          "Description": "Layers of list nesting to remove (-1 will remove all list nestings)\n\nint\nDefault value : -1",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -1512,8 +1512,8 @@
       "Outputs": [
         {
           "Id": "ecfec2ac3d4a4a4eba0bb82b1bcc9191",
-          "Name": "var[]..[]",
-          "Description": "var[]..[]",
+          "Name": "list",
+          "Description": "Flattened list by amount",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -1521,7 +1521,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Flattens a nested list of lists by a certain amount.\n\nList.Flatten (list: var[]..[], amt: int = -1): var[]..[]"
+      "Description": "Flattens a nested list of lists by a certain amount.\n\nList.Flatten (list: var[]..[], amount: int = -1): var[]..[]"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -1754,7 +1754,7 @@
         {
           "Id": "46c6efbdb5d14a7fa39ee0493d260fc8",
           "Name": "lists",
-          "Description": "A list of lists to be transposed.\n\nvar[]..[]",
+          "Description": "List of lists to be transposed\n\nvar[]..[]",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -1765,7 +1765,7 @@
         {
           "Id": "e003af0d072c4812bf7bf8ae20fb2b63",
           "Name": "lists",
-          "Description": "A list of transposed lists.",
+          "Description": "List of transposed lists",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -1813,7 +1813,7 @@
         {
           "Id": "1a4090ce761a43a2a9fca07a3abf828d",
           "Name": "Vector",
-          "Description": "Vector",
+          "Description": "Vector created by coordinates",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -1852,7 +1852,7 @@
         {
           "Id": "1a49429816334f15b3a5a185067dba2d",
           "Name": "points",
-          "Description": "Point[]",
+          "Description": "Points for nurbs curve\n\nPoint[]",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -1863,7 +1863,7 @@
         {
           "Id": "ce6b26cf7edb45038fbfea8d9f607ae9",
           "Name": "NurbsCurve",
-          "Description": "NurbsCurve",
+          "Description": "Nurbscurve created from points",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -1882,7 +1882,7 @@
         {
           "Id": "d48cff265cb44e59a1d9eb0119b86b96",
           "Name": "points",
-          "Description": "Point[]",
+          "Description": "Points for nurbs curve\n\nPoint[]",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -1902,7 +1902,7 @@
         {
           "Id": "9404bffac0284c9bb88d7ee5c1bad002",
           "Name": "NurbsCurve",
-          "Description": "NurbsCurve",
+          "Description": "Nurbscurve created from points",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -2204,7 +2204,7 @@
         {
           "Id": "9f11095c5bf24ab08ba539bb4bf83950",
           "Name": "Vector",
-          "Description": "Vector",
+          "Description": "Vector created by coordinates",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -2353,7 +2353,7 @@
         {
           "Id": "1f5f02629c9a4cd3ba942af21f17b1f4",
           "Name": "x",
-          "Description": "double\nDefault value : 0",
+          "Description": "X coordinate\n\ndouble\nDefault value : 0",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -2362,7 +2362,7 @@
         {
           "Id": "d8e563e62f8c42cc8e142d5c6f10ce2e",
           "Name": "y",
-          "Description": "double\nDefault value : 0",
+          "Description": "Y coordinate\n\ndouble\nDefault value : 0",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -2371,7 +2371,7 @@
         {
           "Id": "9d3c1f92f8c74f999c6a2f57e317322c",
           "Name": "z",
-          "Description": "double\nDefault value : 0",
+          "Description": "Z coordinate\n\ndouble\nDefault value : 0",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -2382,7 +2382,7 @@
         {
           "Id": "2db920d9b48f488ba67a4e67f8ad2017",
           "Name": "Point",
-          "Description": "Point",
+          "Description": "Point created by coordinates",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -2473,7 +2473,7 @@
         {
           "Id": "12fedb5c5ddb4a5cbf2c89de7abb7768",
           "Name": "startPoint",
-          "Description": "Point",
+          "Description": "Line start point\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -2482,7 +2482,7 @@
         {
           "Id": "242a2708a8dd4879ac3c1eda2801c6cd",
           "Name": "endPoint",
-          "Description": "Point",
+          "Description": "Line end point\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -2493,7 +2493,7 @@
         {
           "Id": "30a89eccec834c02984fd2258024da36",
           "Name": "Line",
-          "Description": "Line",
+          "Description": "Line from start and end point",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -2570,7 +2570,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Get the length of the vector - otherwise known as the Euclidean norm\n\nVector.Length: double"
+      "Description": "Get the length of the vector otherwise known as the Euclidean norm.\n\nVector.Length: double"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -3102,14 +3102,31 @@
       ]
     }
   ],
+  "Thumbnail": null,
+  "GraphDocumentationURL": null,
+  "ExtensionWorkspaceData": [
+    {
+      "ExtensionGuid": "28992e1d-abb9-417f-8b1b-05e053bee670",
+      "Name": "Properties",
+      "Version": "2.12",
+      "Data": {}
+    }
+  ],
+  "Author": "None provided",
+  "Linting": {
+    "activeLinter": "None",
+    "activeLinterId": "7b75fb44-43fd-4631-a878-29f4d5d8399a",
+    "warningCount": 0,
+    "errorCount": 0
+  },
   "Bindings": [],
   "View": {
     "Dynamo": {
       "ScaleFactor": 1.0,
       "HasRunWithoutCrash": true,
       "IsVisibleInDynamoLibrary": true,
-      "Version": "2.10.1.3976",
-      "RunType": "Automatic",
+      "Version": "2.12.0.5650",
+      "RunType": "Manual",
       "RunPeriod": "1000"
     },
     "Camera": {
@@ -3877,8 +3894,8 @@
       }
     ],
     "Annotations": [],
-    "X": -535.77374824991011,
-    "Y": 174.34586338361706,
-    "Zoom": 0.15630178261362832
+    "X": -973.33229766920181,
+    "Y": -476.78839019234442,
+    "Zoom": 1.1596768026336342
   }
 }

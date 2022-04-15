@@ -20,6 +20,9 @@ sys.path.append("C:\\Users\\dalto\\OneDrive\\My Stuff\\GitHub\\All-Sorts-of-Dyna
 
 import clr
 
+clr.AddReference('ProtoGeometry')
+from Autodesk.DesignScript.Geometry import Vector, Line
+
 clr.AddReference('RevitAPI')
 from Autodesk.Revit.DB import *
 from Autodesk.Revit.DB.Structure import *
