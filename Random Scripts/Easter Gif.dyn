@@ -1210,7 +1210,7 @@
     {
       "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
       "NodeType": "PythonScriptNode",
-      "Code": "\"\"\"\r\nDynamo Core Assemblies: \r\nhttps://www.nuget.org/packages/DynamoVisualProgramming.Core/2.13.1.3887\r\n\r\nRevit API: \r\nhttps://www.revitapidocs.com/2020/d4648875-d41a-783b-d5f4-638df39ee413.htm\r\n\"\"\"\r\n\r\n\"\"\"\r\nC:\\Program Files\\Autodesk\\Revit 2022\\AddIns\\DynamoForRevit\r\n\r\nC:\\Program Files\\Autodesk\\Revit 2022\\AddIns\\DynamoForRevit\\Revit\r\n\r\n\"\"\"\r\nimport clr\r\nclr.AddReference('RevitAPI')\r\nfrom Autodesk.Revit.DB import Color\r\nfrom random import randint\r\n\r\ncnt = IN[0]\r\nrandint(0, 5)\r\n\r\ng1 = Color(0,128,255)\r\ng2 = Color(124,252,255)\r\n\r\nOUT = []\r\nfor i in range(cnt):\r\n\tif randint(0, 5) < 5:\r\n\t\tOUT.append(g1)\r\n\telse:\r\n\t\tOUT.append(g2)\r\n",
+      "Code": "\"\"\"\r\nDynamo Core Assemblies: \r\nhttps://www.nuget.org/packages/DynamoVisualProgramming.Core/2.13.1.3887\r\n\r\nRevit API: \r\nhttps://www.revitapidocs.com/2020/d4648875-d41a-783b-d5f4-638df39ee413.htm\r\n\"\"\"\r\n\r\n\"\"\"\r\nC:\\Program Files\\Autodesk\\Revit 2022\\AddIns\\DynamoForRevit\r\n\r\nC:\\Program Files\\Autodesk\\Revit 2022\\AddIns\\DynamoForRevit\\Revit\r\n\r\n\"\"\"\r\nimport clr\r\n#clr.AddReference('GeometryColor')\r\n#import Modifiers\r\n\r\nclr.AddReference('DSCoreNodes')\r\nfrom DSCore import Color \r\n\r\nfrom random import randint\r\n\r\ncnt = IN[0]\r\nrandint(0, 5)\r\n\r\ng1 = Color.ByARGB(255,0,128,0)\r\ng2 = Color.ByARGB(255,154,205,50)\r\n\r\nOUT = []\r\nfor i in range(cnt):\r\n\tif randint(0, 5) < 5:\r\n\t\tOUT.append(g1)\r\n\telse:\r\n\t\tOUT.append(g2)\r\n",
       "Engine": "IronPython2",
       "VariableInputPorts": true,
       "Id": "bc3c48f969994eeb9fd7f46a4452d97c",
@@ -1777,10 +1777,10 @@
       "ConcreteType": "CoreNodeModels.Input.DoubleSlider, CoreNodeModels",
       "NodeType": "NumberInputNode",
       "NumberType": "Double",
-      "MaximumValue": 100.0,
+      "MaximumValue": 200.0,
       "MinimumValue": 0.0,
       "StepValue": 0.1,
-      "InputValue": 81.55,
+      "InputValue": 107.0,
       "Id": "2a83eb63553f4f8f82e82741ece6382c",
       "Inputs": [],
       "Outputs": [
@@ -3662,7 +3662,7 @@
       "MaximumValue": 1.0,
       "MinimumValue": 0.0,
       "StepValue": 0.001,
-      "InputValue": 0.206,
+      "InputValue": 0.796,
       "Id": "40929c9da55940179cc6d4623c7cb5ca",
       "Inputs": [],
       "Outputs": [
@@ -4010,96 +4010,6 @@
       "Description": "Display geometry using a color.\n\nGeometryColor.ByGeometryColor (geometry: Geometry, color: Color): GeometryColor"
     },
     {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSVarArgFunction, DynamoCore",
-      "FunctionSignature": "DSCore.List.Join@var[]..[]",
-      "FunctionType": "VariableArgument",
-      "NodeType": "FunctionNode",
-      "Id": "809e312e4a60438aa43bf05f3a3e48ef",
-      "Inputs": [
-        {
-          "Id": "48c12a95b3d54c11b12f21d2c201ba10",
-          "Name": "list0",
-          "Description": "Lists to join into one.\n\nvar[]..[]",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "5dace6d71f1d4b8f8a209ee2185a960d",
-          "Name": "list1",
-          "Description": "var[]..[]",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "ec029b7fa2004bbba5b19bee4aa25341",
-          "Name": "list",
-          "Description": "Joined list.",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Disabled",
-      "Description": "Concatenates all given lists into a single list.\n\nList.Join (lists: var[]..[]): var[]..[]"
-    },
-    {
-      "ConcreteType": "CoreNodeModels.Input.ColorPalette, CoreNodeModels",
-      "InputValue": {
-        "R": 0,
-        "G": 128,
-        "B": 0,
-        "A": 255
-      },
-      "NodeType": "ColorInputNode",
-      "Id": "9f0eeee40bbc48b798501f5222a6244d",
-      "Inputs": [],
-      "Outputs": [
-        {
-          "Id": "2eb2e52a504742268df859c16276f7bd",
-          "Name": "Color",
-          "Description": "Selected Color.",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Disabled",
-      "Description": "Select a Color from the palette"
-    },
-    {
-      "ConcreteType": "CoreNodeModels.Input.ColorPalette, CoreNodeModels",
-      "InputValue": {
-        "R": 154,
-        "G": 205,
-        "B": 50,
-        "A": 255
-      },
-      "NodeType": "ColorInputNode",
-      "Id": "3d47ff5408d04c8c830f43b9c1cc7a42",
-      "Inputs": [],
-      "Outputs": [
-        {
-          "Id": "523aaf754d7446ba9e5326a6d835046c",
-          "Name": "Color",
-          "Description": "Selected Color.",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Disabled",
-      "Description": "Select a Color from the palette"
-    },
-    {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
       "FunctionSignature": "DSCore.List.Count@var[]..[]",
@@ -4128,38 +4038,6 @@
       ],
       "Replication": "Auto",
       "Description": "Returns the number of items stored in the given list.\n\nList.Count (list: var[]..[]): int"
-    },
-    {
-      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
-      "NodeType": "PythonScriptNode",
-      "Code": "\"\"\"\r\nDynamo Core Assemblies: \r\nhttps://www.nuget.org/packages/DynamoVisualProgramming.Core/2.13.1.3887\r\n\r\nRevit API: \r\nhttps://www.revitapidocs.com/2020/d4648875-d41a-783b-d5f4-638df39ee413.htm\r\n\"\"\"\r\n\r\n\"\"\"\r\nC:\\Program Files\\Autodesk\\Revit 2022\\AddIns\\DynamoForRevit\r\n\r\nC:\\Program Files\\Autodesk\\Revit 2022\\AddIns\\DynamoForRevit\\Revit\r\n\r\n\"\"\"\r\n\r\n\r\nimport sys\r\nsys.path.append(\"C:\\\\Users\\\\dalto\\\\anaconda3\\\\envs\\\\Dynamo_2022\\\\Lib\")\r\nsys.path.append(\"C:\\\\Users\\\\dalto\\\\OneDrive\\\\My Stuff\\\\GitHub\\\\All-Sorts-of-Dynamo-Scripts\\\\Python Module\")\r\n\r\nimport clr\r\n\r\nclr.AddReference('RevitAPI')\r\nfrom Autodesk.Revit.DB import *\r\nfrom Autodesk.Revit.DB.Structure import *\r\n\r\nclr.AddReference('RevitAPIUI')\r\nfrom Autodesk.Revit.UI import *\r\n\r\nclr.AddReference('System')\r\nfrom System.Collections.Generic import List\r\n\r\nclr.AddReference('RevitNodes')\r\nimport Revit\r\nclr.ImportExtensions(Revit.GeometryConversion)\r\nclr.ImportExtensions(Revit.Elements)\r\n\r\nclr.AddReference('RevitServices')\r\nimport RevitServices\r\nfrom RevitServices.Persistence import DocumentManager\r\nfrom RevitServices.Transactions import TransactionManager\r\n\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\nuidoc=DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument\r\n\r\n#Preparing input from dynamo to revit\r\nelement = UnwrapElement(IN[0])\r\n\r\n#Do some action in a Transaction\r\nTransactionManager.Instance.EnsureInTransaction(doc)\r\n\r\nTransactionManager.Instance.TransactionTaskDone()\r\n\r\nOUT = element",
-      "Engine": "IronPython2",
-      "VariableInputPorts": true,
-      "Id": "c6f2a44ba75245ddab49518a2ad6ee82",
-      "Inputs": [
-        {
-          "Id": "74d1504dbfe04d5fb6e7ba3cc4e57ec4",
-          "Name": "IN[0]",
-          "Description": "Input #0",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "9eff7ede2d884b6cb851c2e5beacfe6e",
-          "Name": "OUT",
-          "Description": "Result of the python script",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Disabled",
-      "Description": "Runs an embedded Python script."
     }
   ],
   "Connectors": [
@@ -4336,7 +4214,7 @@
     {
       "Start": "afa6c2bd9be84f1d88c09bc6265a4837",
       "End": "3fc3425e357b4e5e8843dd60c7f678c2",
-      "Id": "e43aa909e23840ec8ee727d60ea56c7a"
+      "Id": "06da255279b74dd0a34aaa7d076bedb5"
     },
     {
       "Start": "f1d29f7eb5404ab9a2c916116900ed5d",
@@ -4834,16 +4712,6 @@
       "Id": "2f100d5372a24b969a73569ef8ff54c9"
     },
     {
-      "Start": "2eb2e52a504742268df859c16276f7bd",
-      "End": "5dace6d71f1d4b8f8a209ee2185a960d",
-      "Id": "0b071d8df62c4d24aa51fd460e4c058d"
-    },
-    {
-      "Start": "523aaf754d7446ba9e5326a6d835046c",
-      "End": "48c12a95b3d54c11b12f21d2c201ba10",
-      "Id": "824173f4e984462bba0fc1c9e079424b"
-    },
-    {
       "Start": "dce50a82935c4b8cae9939b781eb1709",
       "End": "e6e4fa3c5489449095f207f20e1d067f",
       "Id": "617ab3b09e364501b47ac3a4533d8a82"
@@ -4891,15 +4759,15 @@
     },
     "Camera": {
       "Name": "Background Preview",
-      "EyeX": -9.5598678588867188,
-      "EyeY": 5.9392728805541992,
-      "EyeZ": 13.664331436157227,
-      "LookX": 8.5312900543212891,
-      "LookY": -2.639430046081543,
-      "LookZ": -8.4749259948730469,
-      "UpX": -2.8006627417198615E-07,
-      "UpY": 1.0,
-      "UpZ": -6.13415011230245E-07
+      "EyeX": -24.570114135742188,
+      "EyeY": 10.042106628417969,
+      "EyeZ": 21.453281402587891,
+      "LookX": 75.937088012695313,
+      "LookY": -27.878250122070313,
+      "LookZ": -56.829120635986328,
+      "UpX": 0.055848769843578339,
+      "UpY": 0.99756407737731934,
+      "UpZ": -0.041795536875724792
     },
     "NodeViews": [
       {
@@ -5383,7 +5251,7 @@
         "Y": 4982.541736720179
       },
       {
-        "ShowGeometry": true,
+        "ShowGeometry": false,
         "Name": "Point.ByCoordinates",
         "Id": "27dbaf2fbcbe445f9ade3e9b902989ab",
         "IsSetAsInput": false,
@@ -5399,8 +5267,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 10689.70255659834,
-        "Y": 5003.975190791999
+        "X": 10689.7025565983,
+        "Y": 5003.975190792
       },
       {
         "ShowGeometry": true,
@@ -5409,8 +5277,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 10689.70255659834,
-        "Y": 5053.975190791999
+        "X": 10689.7025565983,
+        "Y": 5053.975190792
       },
       {
         "ShowGeometry": true,
@@ -6054,36 +5922,6 @@
       },
       {
         "ShowGeometry": true,
-        "Name": "List.Join",
-        "Id": "809e312e4a60438aa43bf05f3a3e48ef",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 14682.79147183792,
-        "Y": 5035.8668693708114
-      },
-      {
-        "ShowGeometry": true,
-        "Name": "Color Palette",
-        "Id": "9f0eeee40bbc48b798501f5222a6244d",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 14543.896941965588,
-        "Y": 4919.4273999040324
-      },
-      {
-        "ShowGeometry": true,
-        "Name": "Color Palette",
-        "Id": "3d47ff5408d04c8c830f43b9c1cc7a42",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 14527.591269965766,
-        "Y": 5080.4422698454846
-      },
-      {
-        "ShowGeometry": true,
         "Name": "List.Count",
         "Id": "1a85de422f7d416abdea6e175c51b7af",
         "IsSetAsInput": false,
@@ -6091,21 +5929,11 @@
         "Excluded": false,
         "X": 14836.067488967132,
         "Y": 4889.2750192278027
-      },
-      {
-        "ShowGeometry": true,
-        "Name": "Python Script",
-        "Id": "c6f2a44ba75245ddab49518a2ad6ee82",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 15160.318924056466,
-        "Y": 4582.9791670913473
       }
     ],
     "Annotations": [],
-    "X": -1149.0888975019511,
-    "Y": 191.84327786684389,
-    "Zoom": 0.37441848458764049
+    "X": 1203.2602037359975,
+    "Y": -7309.2476661959645,
+    "Zoom": 1.4187288710093737
   }
 }
