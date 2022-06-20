@@ -124,54 +124,6 @@
       "Description": "Create a Helix. The helix always rotates clockwise about the supplied axis direction. If viewing along the axis direction, the viewer will see the point turning clockwise around the axis as it moves along the curve in the direction of increasing parameter. Pitch is Distance the helix moves in the axis direction per turn. This can be positive or negative.\n\nHelix.ByAxis (axisPoint: Point = Autodesk.DesignScript.Geometry.Point.ByCoordinates(0, 0, 0), axisDirection: Vector = Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0, 0, 1), startPoint: Point = Autodesk.DesignScript.Geometry.Point.ByCoordinates(1, 0, 0), pitch: double = 1, angleTurns: double = 360): Helix"
     },
     {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "Autodesk.DesignScript.Geometry.Point.ByCoordinates@double,double,double",
-      "Id": "84d023553aa949fbb956f0b298aa14e5",
-      "Inputs": [
-        {
-          "Id": "6b12a5843ccc4f1f814cea6df9d56c09",
-          "Name": "x",
-          "Description": "X coordinate\n\ndouble\nDefault value : 0",
-          "UsingDefaultValue": true,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "19cadab196b74ba5b6360fc8183a97bd",
-          "Name": "y",
-          "Description": "Y coordinate\n\ndouble\nDefault value : 0",
-          "UsingDefaultValue": true,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "b7ebe8dae63041f6890481b31b6f569d",
-          "Name": "z",
-          "Description": "Z coordinate\n\ndouble\nDefault value : 0",
-          "UsingDefaultValue": true,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "75ec42b77de140a98776daec4d5da56c",
-          "Name": "Point",
-          "Description": "Point created by coordinates",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Auto",
-      "Description": "Form a Point given 3 cartesian coordinates\n\nPoint.ByCoordinates (x: double = 0, y: double = 0, z: double = 0): Point"
-    },
-    {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
       "NodeType": "CodeBlockNode",
       "Code": "1;",
@@ -246,7 +198,7 @@
       "MaximumValue": 2000.0,
       "MinimumValue": 90.0,
       "StepValue": 90.0,
-      "InputValue": 2000.0,
+      "InputValue": 1440.0,
       "Id": "e758722b94764baa8a2cba9398ad3a2d",
       "Inputs": [],
       "Outputs": [
@@ -270,7 +222,7 @@
       "MaximumValue": 15.0,
       "MinimumValue": 1.0,
       "StepValue": 1.0,
-      "InputValue": 6.0,
+      "InputValue": 9.0,
       "Id": "6ac1e2774c8046dda463db77b387ae87",
       "Inputs": [],
       "Outputs": [
@@ -294,7 +246,7 @@
       "MaximumValue": 15.0,
       "MinimumValue": 1.0,
       "StepValue": 1.0,
-      "InputValue": 5.0,
+      "InputValue": 7.0,
       "Id": "f7e317d1ef594d959c7590de43103c8d",
       "Inputs": [],
       "Outputs": [
@@ -1736,45 +1688,6 @@
       "Description": "Make PolyCurve by joining curves. Flips curve as needed for connectivity. Choose a preferred join tolerance between 1e-6 and 1e-3 units.\n\nPolyCurve.ByJoinedCurves (curves: Curve[], joinTolerance: double = 0.001): PolyCurve"
     },
     {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "Autodesk.DesignScript.Geometry.PolyCurve.ByGroupedCurves@Autodesk.DesignScript.Geometry.Curve[],double",
-      "Id": "e6e28206e57947eeb564187fb7f26f45",
-      "Inputs": [
-        {
-          "Id": "a5e6353d3b654021a593727d57a9c15c",
-          "Name": "curves",
-          "Description": "Curves to group together to create one or more PolyCurves\n\nCurve[]",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "ad53c79af9a14226a3d931de14882170",
-          "Name": "joinTolerance",
-          "Description": "Tolerance to determine size of gap allowed between curves to be joined\n\ndouble\nDefault value : 0.001",
-          "UsingDefaultValue": true,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "afc77e9487ee4978ae5f6e7ae1641297",
-          "Name": "PolyCurve[]..[]",
-          "Description": "PolyCurve[]..[]",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Auto",
-      "Description": "Make one or more polycurves by grouping connected curves. Choose a preferred join tolerance between 1e-6 and 1e-3 units.\n\nPolyCurve.ByGroupedCurves (curves: Curve[], joinTolerance: double = 0.001): PolyCurve[]..[]"
-    },
-    {
       "ConcreteType": "CoreNodeModels.CreateList, CoreNodeModels",
       "VariableInputPorts": true,
       "NodeType": "ExtensionNode",
@@ -2396,12 +2309,6 @@
       "IsHidden": "False"
     },
     {
-      "Start": "75ec42b77de140a98776daec4d5da56c",
-      "End": "01e54a3ae4ce48408fd62451d54bfb7a",
-      "Id": "990d11b52a6046f0afc01b264ce607c6",
-      "IsHidden": "False"
-    },
-    {
       "Start": "ed46d2f6e1cd4e54b385f7e88ca1b6e2",
       "End": "565e1d7b7c0d43229af3ef6906a75f43",
       "Id": "e59a94c051b0421894a64b9c5c756ddb",
@@ -2907,15 +2814,15 @@
     },
     "Camera": {
       "Name": "Background Preview",
-      "EyeX": -13.845996856689453,
-      "EyeY": 37.402509689331055,
-      "EyeZ": 23.573165893554688,
-      "LookX": 18.785968780517578,
-      "LookY": -19.4580078125,
-      "LookZ": -28.179355621337891,
-      "UpX": 0.16679969429969788,
-      "UpY": 0.95371663570404053,
-      "UpZ": -0.25020492076873779
+      "EyeX": 12.52431583404541,
+      "EyeY": 41.242343902587891,
+      "EyeZ": -36.034902572631836,
+      "LookX": -14.706150054931641,
+      "LookY": -22.8914794921875,
+      "LookZ": 28.023281097412109,
+      "UpX": -0.18529096245765686,
+      "UpY": 0.917060375213623,
+      "UpZ": 0.3530830442905426
     },
     "ConnectorPins": [],
     "NodeViews": [
@@ -2938,16 +2845,6 @@
         "Excluded": false,
         "X": 1771.3092283693395,
         "Y": 1710.6148465616013
-      },
-      {
-        "Name": "Point.ByCoordinates",
-        "ShowGeometry": true,
-        "Id": "84d023553aa949fbb956f0b298aa14e5",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 1010.0542641148886,
-        "Y": 1328.1438292216974
       },
       {
         "Name": "Code Block",
@@ -2976,8 +2873,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -454.04345596811356,
-        "Y": 2135.4157766925205
+        "X": -468.36570593823456,
+        "Y": 2284.8883731948117
       },
       {
         "Name": "Pitch",
@@ -2986,8 +2883,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -454.7765255064661,
-        "Y": 2006.8462072678462
+        "X": -469.09877547658709,
+        "Y": 2156.3188037701375
       },
       {
         "Name": "Start",
@@ -2996,8 +2893,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -465.3495788555955,
-        "Y": 1860.0520004903551
+        "X": -469.05473952127738,
+        "Y": 2035.3089567319985
       },
       {
         "Name": "List.Join",
@@ -3006,8 +2903,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 544.71412045554655,
-        "Y": 1859.9591972012868
+        "X": 723.41381071156832,
+        "Y": 1814.8817978574257
       },
       {
         "Name": "Code Block",
@@ -3016,12 +2913,12 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 266.31064457506113,
-        "Y": 1936.3027411534342
+        "X": 472.02157920260584,
+        "Y": 1935.6479172791896
       },
       {
         "Name": "Curve.Extrude",
-        "ShowGeometry": true,
+        "ShowGeometry": false,
         "Id": "198feda175ea48f08595468f08d39b0a",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
@@ -3056,8 +2953,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -466.65163978042244,
-        "Y": 2282.5291710640486
+        "X": -468.84007340261303,
+        "Y": 2415.3177700879355
       },
       {
         "Name": "Number Slider",
@@ -3396,8 +3293,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 10672.977627595921,
-        "Y": 1037.0839049628537
+        "X": 11196.306126678395,
+        "Y": 1057.7388619239416
       },
       {
         "Name": "PolyCurve.ByJoinedCurves",
@@ -3406,18 +3303,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 10342.742602014028,
-        "Y": 1042.9140022626516
-      },
-      {
-        "Name": "PolyCurve.ByGroupedCurves",
-        "ShowGeometry": true,
-        "Id": "e6e28206e57947eeb564187fb7f26f45",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 9154.15961865472,
-        "Y": 219.02636648284894
+        "X": 10866.071101096502,
+        "Y": 1063.5689592237395
       },
       {
         "Name": "List Create",
@@ -3426,8 +3313,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 9760.2150117508,
-        "Y": 1023.8663926294057
+        "X": 10283.543510833275,
+        "Y": 1044.5213495904936
       },
       {
         "Name": "Code Block",
@@ -3436,8 +3323,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 9575.4057615202128,
-        "Y": 1384.9152283343219
+        "X": 9990.86241800115,
+        "Y": 1245.7600481079485
       },
       {
         "Name": "List.Transpose",
@@ -3446,8 +3333,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 10037.828345209246,
-        "Y": 983.58524228445572
+        "X": 10561.15684429172,
+        "Y": 1004.2401992455436
       },
       {
         "Name": "Code Block",
@@ -3461,13 +3348,13 @@
       },
       {
         "Name": "Surface.Thicken",
-        "ShowGeometry": true,
+        "ShowGeometry": false,
         "Id": "d4b7f3751b53409abdc3fb59f62192e4",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 3128.98418574064,
-        "Y": 2348.4735148276336
+        "X": 3233.1751189435931,
+        "Y": 2208.7051897992824
       },
       {
         "Name": "Railing Thickness",
@@ -3476,8 +3363,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -458.40803517414213,
-        "Y": 2514.5021255829556
+        "X": -468.23861709385858,
+        "Y": 2544.1217225902456
       },
       {
         "Name": "Code Block",
@@ -3486,28 +3373,28 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 2870.7839209818221,
-        "Y": 2504.4511518572212
+        "X": 2974.9748541847753,
+        "Y": 2364.68282682887
       },
       {
         "Name": "Surface.Thicken",
-        "ShowGeometry": true,
+        "ShowGeometry": false,
         "Id": "f1ad4eac5fe7433d899f4749e32be9a1",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 3132.4998446462751,
-        "Y": 2116.7351445258569
+        "X": 3236.6907778492282,
+        "Y": 1976.9668194975056
       },
       {
         "Name": "Code Block",
-        "ShowGeometry": true,
+        "ShowGeometry": false,
         "Id": "7fd11329f02d4694950d1b2c3cfff2a0",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 2880.7757891341171,
-        "Y": 2319.956888978289
+        "X": 2984.96672233707,
+        "Y": 2180.1885639499378
       },
       {
         "Name": "Surface.Thicken",
@@ -3516,8 +3403,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 11074.544570051137,
-        "Y": 1063.0056819126535
+        "X": 11597.873069133611,
+        "Y": 1083.6606388737414
       },
       {
         "Name": "Code Block",
@@ -3526,8 +3413,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 10854.9332374088,
-        "Y": 1270.0087262646659
+        "X": 11374.667634759428,
+        "Y": 1203.2072077508028
       },
       {
         "Name": "Step Thickness",
@@ -3536,8 +3423,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -458.01473158873057,
-        "Y": 2705.7330655565111
+        "X": -464.024239359684,
+        "Y": 2671.6680934177534
       },
       {
         "Name": "GeometryColor.ByGeometryColor",
@@ -3546,18 +3433,18 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 11576.210024229485,
-        "Y": 1251.1665658582397
+        "X": 12099.53852331196,
+        "Y": 1271.8215228193276
       },
       {
-        "Name": "Color Palette",
+        "Name": "Stairs Color",
         "ShowGeometry": true,
         "Id": "3b8cbc409f8c4998905a884606c05fef",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 11215.293429576092,
-        "Y": 1409.5534047585843
+        "X": -281.4564325865731,
+        "Y": 2916.572782965316
       },
       {
         "Name": "GeometryColor.ByGeometryColor",
@@ -3566,33 +3453,62 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 3860.8796814975531,
-        "Y": 1967.4820319663736
+        "X": 3861.4923708738747,
+        "Y": 2068.8242965519553
       },
       {
-        "Name": "Color Palette",
+        "Name": "Railing Color",
         "ShowGeometry": true,
         "Id": "d10c4682bfc544a480a1c6f034caa02b",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 3613.3349136809111,
-        "Y": 2039.2301014355421
+        "X": -288.66873715557313,
+        "Y": 2793.3502485504787
       },
       {
         "Name": "List.Join",
-        "ShowGeometry": true,
+        "ShowGeometry": false,
         "Id": "bcb2e16680f14b9b9e88a36914957580",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 3536.2327697146911,
-        "Y": 2268.64811163576
+        "X": 3560.4563070738482,
+        "Y": 2015.8592004815096
       }
     ],
-    "Annotations": [],
-    "X": -3015.5698961444496,
-    "Y": -1487.7247630401812,
-    "Zoom": 0.93788223573643192
+    "Annotations": [
+      {
+        "Id": "bd4a9655ba6e48f8aab1ba240da8525b",
+        "Title": "Inputs",
+        "DescriptionText": "<Double click here to edit group description>",
+        "IsExpanded": true,
+        "WidthAdjustment": 0.0,
+        "HeightAdjustment": 0.0,
+        "Nodes": [
+          "e758722b94764baa8a2cba9398ad3a2d",
+          "6ac1e2774c8046dda463db77b387ae87",
+          "f7e317d1ef594d959c7590de43103c8d",
+          "fc071d9464f94a649dac728ef6abdc28",
+          "ea5f10be19d3443ea1f8e778e2a64a5b",
+          "eb46e123429042c8b54eca40b0aa3404",
+          "3b8cbc409f8c4998905a884606c05fef",
+          "d10c4682bfc544a480a1c6f034caa02b"
+        ],
+        "HasNestedGroups": false,
+        "Left": -479.09877547658709,
+        "Top": 1962.3089567319985,
+        "Width": 368.43003832101397,
+        "Height": 1086.2638262333176,
+        "FontSize": 36.0,
+        "InitialTop": 2035.3089567319985,
+        "InitialHeight": 1100.9451582331126,
+        "TextblockHeight": 63.0,
+        "Background": "#FFC1D676"
+      }
+    ],
+    "X": 592.80552227118244,
+    "Y": -417.28832975472471,
+    "Zoom": 0.31907312786642328
   }
 }
