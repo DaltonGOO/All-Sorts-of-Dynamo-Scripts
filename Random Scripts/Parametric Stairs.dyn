@@ -198,7 +198,7 @@
       "MaximumValue": 2000.0,
       "MinimumValue": 90.0,
       "StepValue": 90.0,
-      "InputValue": 1440.0,
+      "InputValue": 540.0,
       "Id": "e758722b94764baa8a2cba9398ad3a2d",
       "Inputs": [],
       "Outputs": [
@@ -222,7 +222,7 @@
       "MaximumValue": 15.0,
       "MinimumValue": 1.0,
       "StepValue": 1.0,
-      "InputValue": 9.0,
+      "InputValue": 15.0,
       "Id": "6ac1e2774c8046dda463db77b387ae87",
       "Inputs": [],
       "Outputs": [
@@ -246,7 +246,7 @@
       "MaximumValue": 15.0,
       "MinimumValue": 1.0,
       "StepValue": 1.0,
-      "InputValue": 7.0,
+      "InputValue": 14.0,
       "Id": "f7e317d1ef594d959c7590de43103c8d",
       "Inputs": [],
       "Outputs": [
@@ -472,30 +472,6 @@
       "Outputs": [
         {
           "Id": "d0f06ef436d6440abaa93962150f32b9",
-          "Name": "",
-          "Description": "Double",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Disabled",
-      "Description": "A slider that produces numeric values."
-    },
-    {
-      "ConcreteType": "CoreNodeModels.Input.DoubleSlider, CoreNodeModels",
-      "NodeType": "NumberInputNode",
-      "NumberType": "Double",
-      "MaximumValue": 100.0,
-      "MinimumValue": 1.0,
-      "StepValue": 1.0,
-      "InputValue": 77.0,
-      "Id": "5bcba0fce72141998df115e587aa7b03",
-      "Inputs": [],
-      "Outputs": [
-        {
-          "Id": "8f67a18d3da647358f5cbd3fc835019a",
           "Name": "",
           "Description": "Double",
           "UsingDefaultValue": false,
@@ -1898,7 +1874,7 @@
       "MaximumValue": 1.0,
       "MinimumValue": 0.1,
       "StepValue": 0.1,
-      "InputValue": 0.70000000000000007,
+      "InputValue": 0.30000000000000004,
       "Id": "ea5f10be19d3443ea1f8e778e2a64a5b",
       "Inputs": [],
       "Outputs": [
@@ -2097,7 +2073,7 @@
       "MaximumValue": 1.0,
       "MinimumValue": 0.1,
       "StepValue": 0.1,
-      "InputValue": 0.7,
+      "InputValue": 0.70000000000000007,
       "Id": "eb46e123429042c8b54eca40b0aa3404",
       "Inputs": [],
       "Outputs": [
@@ -2281,6 +2257,66 @@
       ],
       "Replication": "Disabled",
       "Description": "Concatenates all given lists into a single list.\n\nList.Join (lists: var[]..[]): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "x/90;",
+      "Id": "7b80ce08c219420da0a502948c803036",
+      "Inputs": [
+        {
+          "Id": "d3db8f184d204801a567a010cefd3779",
+          "Name": "x",
+          "Description": "x",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "1b5d39e928b2460dac4997a7ee05ccfe",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "x * 12;",
+      "Id": "78f665d6ec0b446b8f3c2b413c57e979",
+      "Inputs": [
+        {
+          "Id": "2cb17e931b574efb81cbc66777e20ead",
+          "Name": "x",
+          "Description": "x",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "a1f6251d96e740788181dd261c93b6a2",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
     }
   ],
   "Connectors": [
@@ -2324,6 +2360,12 @@
       "Start": "0c5854a49189474ebf0231408bbc2aa9",
       "End": "0aeb1e3871564e1db4bd5318ef6f380e",
       "Id": "faeca5b345e9490d9f6c3f72600eaa6a",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "0c5854a49189474ebf0231408bbc2aa9",
+      "End": "d3db8f184d204801a567a010cefd3779",
+      "Id": "ae30d48c209f41739d35649f28d56f90",
       "IsHidden": "False"
     },
     {
@@ -2378,12 +2420,6 @@
       "Start": "d0f06ef436d6440abaa93962150f32b9",
       "End": "54c8677277594dd68f20a76ad924f43a",
       "Id": "472e089667374e4b90e56de3807fec8d",
-      "IsHidden": "False"
-    },
-    {
-      "Start": "8f67a18d3da647358f5cbd3fc835019a",
-      "End": "d6f1310711e6470a871dd4958239136d",
-      "Id": "fb9b62cd7ea7468eaeb2d42d44715df9",
       "IsHidden": "False"
     },
     {
@@ -2775,6 +2811,18 @@
       "End": "61b012a85d244ec4af089c581657b475",
       "Id": "46f3cbe8e4764b648e6d9a3cd8ae4f90",
       "IsHidden": "False"
+    },
+    {
+      "Start": "1b5d39e928b2460dac4997a7ee05ccfe",
+      "End": "2cb17e931b574efb81cbc66777e20ead",
+      "Id": "94fbee717ef44ebcbb43d5ac41f3b3f4",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "a1f6251d96e740788181dd261c93b6a2",
+      "End": "d6f1310711e6470a871dd4958239136d",
+      "Id": "c3fd817fab214e52b32037463f5d2bfc",
+      "IsHidden": "False"
     }
   ],
   "Dependencies": [],
@@ -2814,15 +2862,15 @@
     },
     "Camera": {
       "Name": "Background Preview",
-      "EyeX": 12.52431583404541,
-      "EyeY": 41.242343902587891,
-      "EyeZ": -36.034902572631836,
-      "LookX": -14.706150054931641,
-      "LookY": -22.8914794921875,
-      "LookZ": 28.023281097412109,
-      "UpX": -0.18529096245765686,
-      "UpY": 0.917060375213623,
-      "UpZ": 0.3530830442905426
+      "EyeX": 34.223838806152344,
+      "EyeY": 70.325241088867188,
+      "EyeZ": -21.4754638671875,
+      "LookX": -31.939704895019531,
+      "LookY": -46.706871032714844,
+      "LookZ": 21.796039581298828,
+      "UpX": -0.50853431224823,
+      "UpY": 0.78801095485687256,
+      "UpZ": 0.3470325767993927
     },
     "ConnectorPins": [],
     "NodeViews": [
@@ -2873,8 +2921,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -468.36570593823456,
-        "Y": 2284.8883731948117
+        "X": -481.22794587166231,
+        "Y": 2294.18176575024
       },
       {
         "Name": "Pitch",
@@ -2955,16 +3003,6 @@
         "Excluded": false,
         "X": -468.84007340261303,
         "Y": 2415.3177700879355
-      },
-      {
-        "Name": "Number Slider",
-        "ShowGeometry": true,
-        "Id": "5bcba0fce72141998df115e587aa7b03",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 1693.7544668582468,
-        "Y": 1469.1175223166715
       },
       {
         "Name": "Line.ByStartPointEndPoint",
@@ -3475,6 +3513,26 @@
         "Excluded": false,
         "X": 3560.4563070738482,
         "Y": 2015.8592004815096
+      },
+      {
+        "Name": "Code Block",
+        "ShowGeometry": true,
+        "Id": "7b80ce08c219420da0a502948c803036",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -28.166862509599014,
+        "Y": 2222.9447708493317
+      },
+      {
+        "Name": "Code Block",
+        "ShowGeometry": true,
+        "Id": "78f665d6ec0b446b8f3c2b413c57e979",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 289.07411542507157,
+        "Y": 2207.851307700761
       }
     ],
     "Annotations": [
@@ -3496,19 +3554,19 @@
           "d10c4682bfc544a480a1c6f034caa02b"
         ],
         "HasNestedGroups": false,
-        "Left": -479.09877547658709,
+        "Left": -491.22794587166231,
         "Top": 1962.3089567319985,
-        "Width": 368.43003832101397,
+        "Width": 380.55920871608919,
         "Height": 1086.2638262333176,
         "FontSize": 36.0,
         "InitialTop": 2035.3089567319985,
-        "InitialHeight": 1100.9451582331126,
+        "InitialHeight": 1026.2638262333176,
         "TextblockHeight": 63.0,
         "Background": "#FFC1D676"
       }
     ],
-    "X": 592.80552227118244,
-    "Y": -417.28832975472471,
-    "Zoom": 0.31907312786642328
+    "X": 94.955327860615341,
+    "Y": -913.36860741836858,
+    "Zoom": 0.60471916858537034
   }
 }
