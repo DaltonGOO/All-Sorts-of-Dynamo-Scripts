@@ -1,3 +1,7 @@
+#The BIM Coordinators Dynamo Python Template
+#Subscribe to my YouTube: https://www.youtube.com/c/TheBIMCoordinator/featured
+#Follow my on LinkedIn: https://www.linkedin.com/in/dalton-goodwin-067a07107/
+
 """
 Dynamo Core Assemblies: 
 https://www.nuget.org/packages/DynamoVisualProgramming.Core/2.13.1.3887
