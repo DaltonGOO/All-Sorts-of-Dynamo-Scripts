@@ -1,0 +1,199 @@
+{
+  "Uuid": "2dbc66ec-afd5-4698-a979-552517013ede",
+  "IsCustomNode": false,
+  "Description": "",
+  "Name": "Copying Views for the sake of copying them 3.0.3",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "DSRevitNodesUI.Views, DSRevitNodesUI",
+      "SelectedIndex": 121,
+      "SelectedString": "L2",
+      "Id": "295b81398b974dbaa533f05390b94518",
+      "NodeType": "ExtensionNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "6af8c657b59d498caa2ef5947e58baa3",
+          "Name": "Views",
+          "Description": "The selected Views",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "All views available in the current document."
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "Code": "import clr\r\n\r\nclr.AddReference('RevitAPI')\r\nfrom Autodesk.Revit.DB import ViewDuplicateOption\r\n\r\nclr.AddReference('RevitServices')\r\nfrom RevitServices.Persistence import DocumentManager\r\nfrom RevitServices.Transactions import TransactionManager\r\n\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\nviews = UnwrapElement(IN[0])\r\ncount = IN[1]\r\nif not isinstance(views, list):\r\n        views = [views]      \r\nOUT = []\r\nfor view in views:\r\n     if view.CanViewBeDuplicated(ViewDuplicateOption.Duplicate):\r\n         while count:\r\n            count -= 1\r\n            TransactionManager.Instance.EnsureInTransaction(doc)\r\n            OUT.append(doc.GetElement(view.Duplicate(ViewDuplicateOption.Duplicate)))\r\n            TransactionManager.Instance.TransactionTaskDone()\r\n                    ",
+      "Engine": "CPython3",
+      "VariableInputPorts": true,
+      "Id": "e9239fcdfc5a4327a99904333b9d2daa",
+      "NodeType": "PythonScriptNode",
+      "Inputs": [
+        {
+          "Id": "4f2341d31c204678af7308ba7fefb363",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "8a135c16041040e1827abedd49f52066",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "11f1dfa8b7f74576acb9e9f461422dde",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded Python script."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.IntegerSlider, CoreNodeModels",
+      "NumberType": "Integer",
+      "MaximumValue": 100,
+      "MinimumValue": 1,
+      "StepValue": 1,
+      "Id": "8c5bef81b19b41918b6318e7c95cab64",
+      "NodeType": "NumberInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "bc5b7d75a9a1459885e5893b8b84fd40",
+          "Name": "",
+          "Description": "Int64",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Produces integer values",
+      "InputValue": 100
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "6af8c657b59d498caa2ef5947e58baa3",
+      "End": "4f2341d31c204678af7308ba7fefb363",
+      "Id": "435a916616414a35a113a9d0b5869bbe",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "bc5b7d75a9a1459885e5893b8b84fd40",
+      "End": "8a135c16041040e1827abedd49f52066",
+      "Id": "688a704b237e48b3af3730c6860dc114",
+      "IsHidden": "False"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "EnableLegacyPolyCurveBehavior": true,
+  "Thumbnail": "",
+  "GraphDocumentationURL": null,
+  "ExtensionWorkspaceData": [
+    {
+      "ExtensionGuid": "28992e1d-abb9-417f-8b1b-05e053bee670",
+      "Name": "Properties",
+      "Version": "3.0",
+      "Data": {}
+    },
+    {
+      "ExtensionGuid": "DFBD9CC0-DB40-457A-939E-8C8555555A9D",
+      "Name": "Generative Design",
+      "Version": "7.1",
+      "Data": {}
+    }
+  ],
+  "Author": "",
+  "Linting": {
+    "activeLinter": "None",
+    "activeLinterId": "7b75fb44-43fd-4631-a878-29f4d5d8399a",
+    "warningCount": 0,
+    "errorCount": 0
+  },
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "3.0.3.7597",
+      "RunType": "Automatic",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "_Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "ConnectorPins": [],
+    "NodeViews": [
+      {
+        "Id": "295b81398b974dbaa533f05390b94518",
+        "Name": "Views",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 161.04458863179042,
+        "Y": 369.2901995837007
+      },
+      {
+        "Id": "e9239fcdfc5a4327a99904333b9d2daa",
+        "Name": "Python Script",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 443.08855291576657,
+        "Y": 394.7386609071274
+      },
+      {
+        "Id": "8c5bef81b19b41918b6318e7c95cab64",
+        "Name": "Integer Slider",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 19.137170997316872,
+        "Y": 543.2427123261258
+      }
+    ],
+    "Annotations": [],
+    "X": -0.5953511345911124,
+    "Y": -230.65820943425337,
+    "Zoom": 0.9597886995812657
+  }
+}
